@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Fitosensible — Las plantas sienten más de lo que crees</title>
-		<meta name="description" content="Divulgación científica sobre la vida sensible de las plantas, por Pedro Jiménez-Sandoval." />
+		<meta name="description" content="Divulgación científica sobre cómo las plantas perciben el mundo y responden a él, por Pedro Jiménez-Sandoval." />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -25,7 +25,6 @@
 			</a>
 			<nav class="nav">
 				<a href="/">Inicio</a>
-				<span class="pronto">Blog · pronto</span>
 			</nav>
 		</header>
 
@@ -45,35 +44,36 @@
 				</p>
 			</section>
 
-			<!-- PRÓXIMAMENTE -->
-			<section class="proximamente">
-				<p class="eyebrow">Pronto en el blog</p>
+			<!-- ARTÍCULOS -->
+			<section class="articulos">
+				<p class="eyebrow">Artículos</p>
+				<h2 class="seccion-titulo">Lo más reciente</h2>
 				<div class="temas">
-					<article class="tema">
-						<h3>Los sentidos de las plantas</h3>
-						<p>Cómo perciben la luz, la gravedad, el tiempo y a quien las ataca.</p>
-					</article>
-					<article class="tema">
-						<h3>Ciencia y cultivos</h3>
-						<p>Qué hace hoy la investigación por lo que comemos y por el futuro del campo.</p>
-					</article>
-					<article class="tema">
-						<h3>De dónde viene lo que comemos</h3>
-						<p>La larga historia de cómo domesticamos las plantas que nos alimentan.</p>
-					</article>
+					<a class="tema" href="/blog/como-se-entera-una-planta">
+						<h3>Cómo se entera una planta de que la están mordiendo</h3>
+						<p>Un misterio de más de cien años: cómo una planta avisa a todo su cuerpo cuando la atacan.</p>
+					</a>
 				</div>
 			</section>
 		</main>
 
 		<!-- FOOTER -->
 		<footer class="footer">
-			<p class="firma">Pedro Jiménez-Sandoval</p>
-			<p class="credencial">Investigador, Universidad de Lausanne (Suiza) · SNII Nivel 1, México</p>
-			<p class="descargo">
-				Proyecto personal de divulgación. Las opiniones son propias y no representan
-				a la Universidad de Lausanne.
+			<p class="acerca">
+				<strong>Fitosensible</strong> es un proyecto de divulgación científica sobre cómo las
+				plantas perciben el mundo y responden a él, creado por Pedro Jiménez-Sandoval,
+				Doctor en Ciencias por el Cinvestav (México) e investigador en la Universidad de
+				Lausanne (Suiza). Miembro del SNII Nivel 1 (México).
 			</p>
-			<p class="social">@fitosensible</p>
+			<p class="descargo">
+				Proyecto personal. Las opiniones son propias y no representan a ninguna institución.
+			</p>
+			<nav class="redes">
+				<a href="https://instagram.com/fitosensible" target="_blank" rel="noopener">Instagram</a>
+				<a href="https://tiktok.com/@fitosensible" target="_blank" rel="noopener">TikTok</a>
+				<a href="https://youtube.com/@fitosensible" target="_blank" rel="noopener">YouTube</a>
+				<a href="https://x.com/fitosensible" target="_blank" rel="noopener">X</a>
+			</nav>
 		</footer>
 
 		<style is:global>
@@ -84,7 +84,7 @@
 				--dorado: #C08A2D;
 				--dorado-claro: #D4A24C;
 			}
-			* { box-sizing: border-box; margin: 0; padding: 0; }
+			* { box-sizing: border-box; padding: 0; }
 			body {
 				background: var(--papel);
 				color: var(--tinta);
@@ -92,7 +92,8 @@
 				line-height: 1.6;
 				-webkit-font-smoothing: antialiased;
 			}
-			h1, h3 { font-family: 'Newsreader', serif; font-weight: 500; line-height: 1.1; }
+			h1, h2, h3 { font-family: 'Newsreader', serif; font-weight: 500; line-height: 1.1; margin: 0; }
+			p { margin: 0; }
 
 			.eyebrow {
 				font-size: 0.8rem;
@@ -119,7 +120,6 @@
 			.nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.95rem; }
 			.nav a { color: var(--tinta); text-decoration: none; }
 			.nav a:hover { color: var(--dorado); }
-			.nav .pronto { color: rgba(27,42,34,0.45); }
 
 			/* HERO */
 			.hero { max-width: 960px; margin: 0 auto; padding: 5rem 2rem 4rem; }
@@ -143,14 +143,27 @@
 				max-width: 46ch;
 			}
 
-			/* PRÓXIMAMENTE */
-			.proximamente {
+			/* ARTÍCULOS */
+			.articulos {
 				max-width: 960px;
 				margin: 0 auto;
 				padding: 3rem 2rem 5rem;
 				border-top: 1px solid rgba(27,42,34,0.15);
 			}
+			.seccion-titulo {
+				font-size: 2rem;
+				color: var(--verde);
+				margin-bottom: 2rem;
+			}
 			.temas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+			.tema {
+				display: block;
+				text-decoration: none;
+				color: inherit;
+			}
+			.tema:hover h3 {
+				color: var(--dorado);
+			}
 			.tema h3 { font-size: 1.35rem; color: var(--verde); margin-bottom: 0.5rem; }
 			.tema p { font-size: 0.98rem; color: rgba(27,42,34,0.8); }
 
@@ -162,10 +175,29 @@
 				border-top: 1px solid rgba(27,42,34,0.15);
 				font-size: 0.9rem;
 			}
-			.footer .firma { font-weight: 600; color: var(--verde); }
-			.footer .credencial { color: rgba(27,42,34,0.7); margin-top: 0.15rem; }
-			.footer .descargo { color: rgba(27,42,34,0.6); max-width: 55ch; margin-top: 0.4rem; }
-			.footer .social { color: var(--dorado); margin-top: 0.8rem; }
+			.footer .acerca {
+				max-width: 60ch;
+				color: rgba(27,42,34,0.85);
+				line-height: 1.7;
+			}
+			.footer .acerca strong { color: var(--verde); font-weight: 600; }
+			.footer .descargo {
+				color: rgba(27,42,34,0.6);
+				max-width: 55ch;
+				margin-top: 0.8rem;
+			}
+			.redes {
+				margin-top: 1.2rem;
+				display: flex;
+				gap: 1.5rem;
+				flex-wrap: wrap;
+			}
+			.redes a {
+				color: var(--dorado);
+				text-decoration: none;
+				font-weight: 500;
+			}
+			.redes a:hover { text-decoration: underline; }
 
 			@media (max-width: 700px) {
 				.temas { grid-template-columns: 1fr; }

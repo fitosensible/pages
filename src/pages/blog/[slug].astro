@@ -1,0 +1,207 @@
+---
+import { getCollection } from 'astro:content';
+
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+const { titulo, fecha, autor } = post.data;
+const { Content } = await render(post);
+const fechaLegible = new Date(fecha).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// URL completa del artículo, para los botones de compartir
+const urlArticulo = new URL(Astro.url.pathname, 'https://fitosensible.com').href;
+const textoCompartir = encodeURIComponent(titulo + ' — Fitosensible');
+const urlCodificada = encodeURIComponent(urlArticulo);
+---
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{titulo} — Fitosensible</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="masthead">
+			<a class="wordmark" href="/">
+				<svg class="leaf" viewBox="0 0 120 120" aria-hidden="true">
+					<circle cx="60" cy="60" r="58" fill="#163A2E" />
+					<path d="M60,14 C33,42 33,78 60,106 C87,78 87,42 60,14 Z" fill="#EFE7D3" />
+					<path d="M60,24 L60,54" stroke="#163A2E" stroke-width="5" stroke-linecap="round" fill="none" />
+					<path d="M60,66 Q67,74 60,82 Q53,90 60,100" stroke="#163A2E" stroke-width="5" stroke-linecap="round" fill="none" />
+					<circle cx="60" cy="60" r="5.5" fill="#D4A24C" />
+				</svg>
+				<span>Fitosensible</span>
+			</a>
+			<nav class="nav">
+				<a href="/">Inicio</a>
+			</nav>
+		</header>
+
+		<main class="articulo">
+			<p class="eyebrow">Divulgación científica</p>
+			<h1>{titulo}</h1>
+			<div class="meta">
+			<img class="autor-foto" src="/PedroJS_cuadrada.jpg" alt="Pedro Jiménez-Sandoval" />
+			<span>Por {autor} · {fechaLegible}</span>
+			</div>
+			<div class="cuerpo">
+				<Content />
+			</div>
+
+			<!-- COMPARTIR -->
+			<div class="compartir">
+				<p class="compartir-titulo">¿Te gustó? Compártelo</p>
+				<div class="compartir-botones">
+					<a href={`https://wa.me/?text=${textoCompartir}%20${urlCodificada}`} target="_blank" rel="noopener">WhatsApp</a>
+					<a href={`https://x.com/intent/tweet?text=${textoCompartir}&url=${urlCodificada}`} target="_blank" rel="noopener">X</a>
+					<a href={`https://www.facebook.com/sharer/sharer.php?u=${urlCodificada}`} target="_blank" rel="noopener">Facebook</a>
+					<button id="copiar" data-url={urlArticulo}>Copiar enlace</button>
+				</div>
+			</div>
+		</main>
+
+		<footer class="footer">
+		<a class="volver" href="/">← Volver a Fitosensible</a>
+		</footer>
+
+		<script>
+			const boton = document.getElementById('copiar');
+			if (boton) {
+				boton.addEventListener('click', async () => {
+					const url = boton.getAttribute('data-url');
+					try {
+						await navigator.clipboard.writeText(url);
+						const original = boton.textContent;
+						boton.textContent = '¡Copiado!';
+						setTimeout(() => { boton.textContent = original; }, 2000);
+					} catch (e) {
+						boton.textContent = 'Copia manual: ' + url;
+					}
+				});
+			}
+		</script>
+
+		<style is:global>
+			:root {
+				--papel: #F4EFE3;
+				--verde: #163A2E;
+				--tinta: #1B2A22;
+				--dorado: #C08A2D;
+			}
+			* { box-sizing: border-box; padding: 0; }
+			body {
+				background: var(--papel);
+				color: var(--tinta);
+				font-family: 'Work Sans', sans-serif;
+				line-height: 1.7;
+				-webkit-font-smoothing: antialiased;
+			}
+			.masthead {
+				max-width: 720px; margin: 0 auto; padding: 1.6rem 2rem;
+				display: flex; align-items: center; justify-content: space-between;
+				border-bottom: 1px solid rgba(27,42,34,0.15);
+			}
+			.wordmark { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--verde); }
+			.wordmark .leaf { width: 32px; height: 32px; }
+			.wordmark span { font-family: 'Newsreader', serif; font-size: 1.4rem; font-weight: 600; }
+			.nav a { color: var(--tinta); text-decoration: none; font-size: 0.95rem; }
+			.nav a:hover { color: var(--dorado); }
+
+			.articulo { max-width: 680px; margin: 0 auto; padding: 3.5rem 2rem 2rem; }
+			.eyebrow {
+				font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase;
+				color: var(--dorado); font-weight: 600; margin-bottom: 1rem;
+			}
+			.articulo h1 {
+				font-family: 'Newsreader', serif; font-weight: 500; line-height: 1.15;
+				font-size: clamp(2rem, 5vw, 3.2rem); color: var(--verde); margin-bottom: 1rem;
+			}
+			.meta {
+			display: flex;
+			align-items: center;
+			gap: 0.7rem;
+			color: rgba(27,42,34,0.6);
+			font-size: 0.95rem;
+			margin-bottom: 3rem;
+			}
+			.autor-foto {
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			object-fit: cover;
+			}
+
+			.cuerpo { font-size: 1.15rem; }
+			:global(.cuerpo h2) {
+				font-family: 'Newsreader', serif; font-weight: 500;
+				font-size: 1.7rem; color: var(--verde);
+				margin-top: 2.8rem !important; margin-bottom: 1rem !important;
+			}
+			:global(.cuerpo p),
+			:global(.cuerpo > p),
+			.cuerpo :global(p) {
+			margin-bottom: 1.4rem !important;
+			}
+			:global(.cuerpo h2),
+			.cuerpo :global(h2) {
+			margin-top: 2.8rem !important;
+			margin-bottom: 1rem !important;
+			}
+			:global(.cuerpo strong) { color: var(--verde); }
+			:global(.cuerpo em) { color: rgba(27,42,34,0.75); }
+			:global(.cuerpo a) { color: var(--dorado); text-decoration: underline; }
+			:global(.cuerpo hr) { border: none; border-top: 1px solid rgba(27,42,34,0.15); margin: 2.5rem 0; }
+
+			/* COMPARTIR */
+			.compartir {
+				margin-top: 3.5rem;
+				padding-top: 2rem;
+				border-top: 1px solid rgba(27,42,34,0.15);
+			}
+			.compartir-titulo {
+				font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+				color: var(--dorado); font-weight: 600; margin-bottom: 1rem;
+			}
+			.compartir-botones {
+				display: flex; gap: 0.8rem; flex-wrap: wrap;
+			}
+			.compartir-botones a, .compartir-botones button {
+				font-family: 'Work Sans', sans-serif;
+				font-size: 0.9rem;
+				padding: 0.5rem 1rem;
+				border: 1px solid rgba(27,42,34,0.2);
+				border-radius: 999px;
+				background: transparent;
+				color: var(--verde);
+				text-decoration: none;
+				cursor: pointer;
+				transition: all 0.15s;
+			}
+			.compartir-botones a:hover, .compartir-botones button:hover {
+				background: var(--verde);
+				color: var(--papel);
+				border-color: var(--verde);
+			}
+
+			.footer {
+				max-width: 680px; margin: 0 auto; padding: 2.5rem 2rem 4rem;
+				border-top: 1px solid rgba(27,42,34,0.15); font-size: 0.9rem;
+				display: flex; justify-content: space-between; align-items: center;
+				flex-wrap: wrap; gap: 1rem;
+			}
+			.footer .firma { font-weight: 600; color: var(--verde); }
+			.footer .volver { color: var(--dorado); text-decoration: none; }
+			.footer .volver:hover { text-decoration: underline; }
+		</style>
+	</body>
+</html>
