@@ -1,0 +1,176 @@
+---
+---
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Fitosensible — Las plantas sienten más de lo que crees</title>
+		<meta name="description" content="Divulgación científica sobre la vida sensible de las plantas, por Pedro Jiménez-Sandoval." />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+	</head>
+	<body>
+		<!-- MASTHEAD -->
+		<header class="masthead">
+			<a class="wordmark" href="/">
+				<svg class="leaf" viewBox="0 0 120 120" aria-hidden="true">
+					<circle cx="60" cy="60" r="58" fill="#163A2E" />
+					<path d="M60,14 C33,42 33,78 60,106 C87,78 87,42 60,14 Z" fill="#EFE7D3" />
+					<path d="M60,24 L60,54" stroke="#163A2E" stroke-width="5" stroke-linecap="round" fill="none" />
+					<path d="M60,66 Q67,74 60,82 Q53,90 60,100" stroke="#163A2E" stroke-width="5" stroke-linecap="round" fill="none" />
+					<circle cx="60" cy="60" r="5.5" fill="#D4A24C" />
+				</svg>
+				<span>Fitosensible</span>
+			</a>
+			<nav class="nav">
+				<a href="/">Inicio</a>
+				<span class="pronto">Blog · pronto</span>
+			</nav>
+		</header>
+
+		<main>
+			<!-- HERO -->
+			<section class="hero">
+				<p class="eyebrow">Divulgación científica</p>
+				<h1>Las plantas sienten<br />más de lo que crees.</h1>
+				<p class="deck">
+					No tienen ojos ni nervios, pero perciben la luz, la gravedad, las estaciones
+					y hasta el momento en que un insecto empieza a comerse una hoja —y responden—.
+					Aquí cuento su vida sensible, en lenguaje claro y para todos.
+				</p>
+				<p class="proposito">
+					En español, y a veces en lenguas indígenas: porque la ciencia de frontera
+					también debe contarse en la lengua de casa.
+				</p>
+			</section>
+
+			<!-- PRÓXIMAMENTE -->
+			<section class="proximamente">
+				<p class="eyebrow">Pronto en el blog</p>
+				<div class="temas">
+					<article class="tema">
+						<h3>Los sentidos de las plantas</h3>
+						<p>Cómo perciben la luz, la gravedad, el tiempo y a quien las ataca.</p>
+					</article>
+					<article class="tema">
+						<h3>Ciencia y cultivos</h3>
+						<p>Qué hace hoy la investigación por lo que comemos y por el futuro del campo.</p>
+					</article>
+					<article class="tema">
+						<h3>De dónde viene lo que comemos</h3>
+						<p>La larga historia de cómo domesticamos las plantas que nos alimentan.</p>
+					</article>
+				</div>
+			</section>
+		</main>
+
+		<!-- FOOTER -->
+		<footer class="footer">
+			<p class="firma">Pedro Jiménez-Sandoval</p>
+			<p class="credencial">Investigador, Universidad de Lausanne (Suiza) · SNII Nivel 1, México</p>
+			<p class="descargo">
+				Proyecto personal de divulgación. Las opiniones son propias y no representan
+				a la Universidad de Lausanne.
+			</p>
+			<p class="social">@fitosensible</p>
+		</footer>
+
+		<style is:global>
+			:root {
+				--papel: #F4EFE3;
+				--verde: #163A2E;
+				--tinta: #1B2A22;
+				--dorado: #C08A2D;
+				--dorado-claro: #D4A24C;
+			}
+			* { box-sizing: border-box; margin: 0; padding: 0; }
+			body {
+				background: var(--papel);
+				color: var(--tinta);
+				font-family: 'Work Sans', sans-serif;
+				line-height: 1.6;
+				-webkit-font-smoothing: antialiased;
+			}
+			h1, h3 { font-family: 'Newsreader', serif; font-weight: 500; line-height: 1.1; }
+
+			.eyebrow {
+				font-size: 0.8rem;
+				letter-spacing: 0.18em;
+				text-transform: uppercase;
+				color: var(--dorado);
+				font-weight: 600;
+				margin-bottom: 1rem;
+			}
+
+			/* MASTHEAD */
+			.masthead {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 1.6rem 2rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				border-bottom: 1px solid rgba(27,42,34,0.15);
+			}
+			.wordmark { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--verde); }
+			.wordmark .leaf { width: 34px; height: 34px; }
+			.wordmark span { font-family: 'Newsreader', serif; font-size: 1.5rem; font-weight: 600; }
+			.nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.95rem; }
+			.nav a { color: var(--tinta); text-decoration: none; }
+			.nav a:hover { color: var(--dorado); }
+			.nav .pronto { color: rgba(27,42,34,0.45); }
+
+			/* HERO */
+			.hero { max-width: 960px; margin: 0 auto; padding: 5rem 2rem 4rem; }
+			.hero h1 {
+				font-size: clamp(2.6rem, 6vw, 4.4rem);
+				color: var(--verde);
+				margin-bottom: 1.6rem;
+			}
+			.deck {
+				font-family: 'Newsreader', serif;
+				font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+				max-width: 40ch;
+				color: var(--tinta);
+			}
+			.proposito {
+				margin-top: 1.6rem;
+				padding-left: 1.1rem;
+				border-left: 3px solid var(--dorado);
+				font-style: italic;
+				color: rgba(27,42,34,0.75);
+				max-width: 46ch;
+			}
+
+			/* PRÓXIMAMENTE */
+			.proximamente {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 3rem 2rem 5rem;
+				border-top: 1px solid rgba(27,42,34,0.15);
+			}
+			.temas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+			.tema h3 { font-size: 1.35rem; color: var(--verde); margin-bottom: 0.5rem; }
+			.tema p { font-size: 0.98rem; color: rgba(27,42,34,0.8); }
+
+			/* FOOTER */
+			.footer {
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 2.5rem 2rem 4rem;
+				border-top: 1px solid rgba(27,42,34,0.15);
+				font-size: 0.9rem;
+			}
+			.footer .firma { font-weight: 600; color: var(--verde); }
+			.footer .credencial { color: rgba(27,42,34,0.7); margin-top: 0.15rem; }
+			.footer .descargo { color: rgba(27,42,34,0.6); max-width: 55ch; margin-top: 0.4rem; }
+			.footer .social { color: var(--dorado); margin-top: 0.8rem; }
+
+			@media (max-width: 700px) {
+				.temas { grid-template-columns: 1fr; }
+				.hero { padding-top: 3rem; }
+			}
+		</style>
+	</body>
+</html>
