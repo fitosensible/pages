@@ -2,7 +2,12 @@
 titulo: "Cómo se entera una planta de que la están mordiendo"
 fecha: 2026-07-05
 autor: Pedro Jiménez-Sandoval
+imagen: "/img/oruga-portada.png"
+descripcion: "Las plantas no tienen ojos ni nervios, pero se enteran de que las muerden y corren la voz por su cuerpo. Cómo lo hacen, y el mensajero que tardamos un siglo en atrapar."
 ---
+<img src="/img/oruga-portada.png"
+     alt="Ilustración en plastilina de una oruga mordiendo una hoja cuyas nervaduras se encienden desde la mordida"
+     style="width:100%;border-radius:16px;display:block;margin:0 0 1.5rem" />
 
 Imagina que te muerden un dedo y, un segundo después, todo tu cuerpo ya lo sabe. No porque lo sientas: porque cada rincón, hasta el más lejano, recibió el aviso y empezó a prepararse. En nosotros eso parece de lo más normal. En un ser sin nervios, sin sangre y sin cerebro, es casi un milagro.
 
@@ -33,6 +38,16 @@ Una vez mezclados, esas enzimas se echan a viajar por los conductos de agua de l
 En cristiano: la planta mordida no *lleva* la alarma escrita en un papelito, sino que la *va prendiendo* conforme avanza el mensajero. Como quien corre por un camino oscuro encendiendo faroles uno tras otro —y de paso va dejando la comida tan picante que a nadie le den ganas de seguir mordiendo.
 
 Así que la próxima vez que veas una planta, acuérdate de que ahí, calladita, tiene todo un sistema para enterarse de que la atacan y correr la voz. Se ve tranquila, pero no está indefensa: le mueven una hoja y, a su manera, arma el escándalo por dentro. No grita, no huye, pero manda su recado y se prepara. Cien años nos costó descubrir cómo.
+
+<div style="margin:2.5rem auto;max-width:430px">
+  <p style="font-weight:700;text-align:center;margin:0 0 .6rem">
+    🎮 Ahora vívelo: <em>¿qué hoja te conviene morder?</em>
+  </p>
+  <iframe src="/juegos/oruga.html"
+          title="El laberinto de la oruga — Fitosensible"
+          loading="lazy"
+          style="width:100%;height:660px;border:0;border-radius:16px;display:block;margin:0 auto"></iframe>
+</div>
 
 ## Una cosa más
 

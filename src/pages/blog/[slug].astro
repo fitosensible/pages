@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { titulo, fecha, autor } = post.data;
+const { titulo, fecha, autor, imagen, descripcion } = post.data;
 const { Content } = await render(post);
 const fechaLegible = new Date(fecha).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -20,12 +20,32 @@ const fechaLegible = new Date(fecha).toLocaleDateString('es-MX', { year: 'numeri
 const urlArticulo = new URL(Astro.url.pathname, 'https://fitosensible.com').href;
 const textoCompartir = encodeURIComponent(titulo + ' — Fitosensible');
 const urlCodificada = encodeURIComponent(urlArticulo);
+
+// Imagen social (absoluta) y descripción con respaldo por si algún post no las trae
+const imagenSocial = imagen ? new URL(imagen, 'https://fitosensible.com').href : undefined;
+const descripcionSocial = descripcion || titulo;
 ---
 <html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{titulo} — Fitosensible</title>
+
+		<meta name="description" content={descripcionSocial} />
+		<link rel="canonical" href={urlArticulo} />
+
+		<meta property="og:type" content="article" />
+		<meta property="og:title" content={titulo + ' — Fitosensible'} />
+		<meta property="og:description" content={descripcionSocial} />
+		{imagenSocial && <meta property="og:image" content={imagenSocial} />}
+		<meta property="og:url" content={urlArticulo} />
+		<meta property="og:site_name" content="Fitosensible" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={titulo + ' — Fitosensible'} />
+		<meta name="twitter:description" content={descripcionSocial} />
+		{imagenSocial && <meta name="twitter:image" content={imagenSocial} />}
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
