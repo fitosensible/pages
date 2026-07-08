@@ -158,7 +158,10 @@ Hoy creo que sí sé por qué. Aquellas tardes eran, sin que ninguno lo pensara,
 Y una última, que me parece justicia poética: *olote* viene de *olotl* —del náhuatl—, que algunos explican como forma abreviada de *yólotl*, "corazón". Llevamos nueve mil años, entonces, desgranando el corazón del maíz. Que cada quien decida quién domesticó a quién; a la hora de desgranar, con la mazorca girando entre las manos, la pregunta ya no le importa a nadie.
 
 <div style="margin:2.5rem auto;max-width:480px">
-<iframe src="/juegos/quiz-maiz.html?v=3" title="Quiz: ¿Qué maíz eres? — Fitosensible" loading="lazy" style="width:100%;height:620px;border:0;border-radius:20px;display:block;margin:0 auto"></iframe>
+  <p style="font-weight:700;text-align:center;margin:0 0 .6rem">
+    🌽 Ahora pruébate: <em>¿qué maíz eres?</em>
+  </p>
+  <iframe src="/juegos/quiz-maiz.html?v=3" title="Quiz: ¿Qué maíz eres? — Fitosensible" loading="lazy" style="width:100%;height:620px;border:0;border-radius:20px;display:block;margin:0 auto"></iframe>
 </div>
 
 
