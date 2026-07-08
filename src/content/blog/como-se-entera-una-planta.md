@@ -5,9 +5,13 @@ autor: Pedro Jiménez-Sandoval
 imagen: "/img/oruga-portada.png"
 descripcion: "Las plantas no tienen ojos ni nervios, pero se enteran de que las muerden y corren la voz por su cuerpo. Cómo lo hacen, y el mensajero que tardamos un siglo en atrapar."
 ---
-<img src="/img/oruga-portada.png"
-     alt="Ilustración en plastilina de una oruga mordiendo una hoja cuyas nervaduras se encienden desde la mordida"
-     style="width:100%;border-radius:16px;display:block;margin:0 0 1.5rem" />
+<figure style="margin: 0 0 1.5rem;">
+  <img src="/img/oruga-portada.png" style="width: 100%; height: auto; border-radius: 16px; display: block;" alt="Ilustración estilo plastilina de una oruga mordiendo una hoja cuyas nervaduras se encienden desde la mordida" />
+  <figcaption>
+    Una oruga muerde una hoja y la alarma se enciende por toda la planta.
+    <small>Ilustración generada con inteligencia artificial (Google Gemini).</small>
+  </figcaption>
+</figure>
 
 Imagina que te muerden un dedo y, un segundo después, todo tu cuerpo ya lo sabe. No porque lo sientas: porque cada rincón, hasta el más lejano, recibió el aviso y empezó a prepararse. En nosotros eso parece de lo más normal. En un ser sin nervios, sin sangre y sin cerebro, es casi un milagro.
 

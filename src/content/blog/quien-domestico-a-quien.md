@@ -4,6 +4,13 @@ fecha: 2026-07-07
 autor: Pedro Jiménez-Sandoval
 descripcion: "Una mazorca no puede sembrarse sola. ¿La domesticamos nosotros, o el maíz nos sembró a nosotros?"
 ---
+<figure style="margin: 0 0 1.5rem;">
+  <img src="/img/quien-domestico-portada.png" style="width: 100%; height: auto; border-radius: 16px; display: block;" alt="Bodegón de estudio: a la izquierda el teocintle silvestre, ramificado como pasto; a la derecha el maíz domesticado con mazorcas multicolores; en medio, un mapa de Mesoamérica, un microscopio y herramientas de laboratorio." />
+  <figcaption>
+    Teocintle silvestre y maíz domesticado, frente a frente: la historia de una domesticación.
+    <small>Ilustración generada con inteligencia artificial (Google Gemini).</small>
+  </figcaption>
+</figure>
 
 Toma una mazorca. Cualquiera: de las amarillas del mercado, de las azules de un tlacoyo, de las que cuelgan a secar en un traspatio de los Altos. Fíjate en cómo está construida. Los granos van apretados en hileras perfectas, cientos de ellos, cosidos a un olote central y envueltos —todos juntos— en varias capas de hoja: el totomoxtle (del náhuatl *tōtomōxtli*), las mismas hojas que envuelven esos tamales de mole rojo que tanto te gustan. Es una arquitectura hermosa. También es una trampa mortal.
 
