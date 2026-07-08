@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quiz — ¿Qué maíz eres?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{--papel:#F4EFE3;--verde:#163A2E;--tinta:#1B2A22;--dorado:#C08A2D;--rojo:#b23a3a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:transparent}
+  body{font-family:'Work Sans',sans-serif;color:var(--tinta);display:flex;align-items:flex-start;
+    justify-content:center;padding:10px;-webkit-font-smoothing:antialiased}
+  .card{width:100%;max-width:460px;
+    background:linear-gradient(165deg,#EEF2E9 0%,#E3EADB 55%,#DCE6D2 100%);
+    border:1px solid rgba(22,58,46,0.18);border-radius:20px;
+    box-shadow:0 18px 40px -18px rgba(22,58,46,0.45),inset 0 1px 0 rgba(255,255,255,0.6);
+    padding:1.7rem 1.6rem 1.5rem;overflow:hidden}
+  .top{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--dorado);
+    font-weight:700;display:flex;align-items:center;gap:0.4rem;margin-bottom:0.35rem}
+  .top .dot{width:7px;height:7px;border-radius:50%;background:var(--dorado);display:inline-block}
+  .title{font-family:'Newsreader',serif;font-weight:600;font-size:1.5rem;color:var(--verde);
+    line-height:1.15;margin-bottom:1.1rem}
+  .bar{height:7px;background:rgba(22,58,46,0.13);border-radius:999px;overflow:hidden;margin-bottom:0.5rem}
+  .bar-fill{height:100%;width:0;border-radius:999px;
+    background:linear-gradient(90deg,var(--dorado),#e0b25e);
+    transition:width 0.45s cubic-bezier(.4,0,.2,1)}
+  .counter{font-size:0.72rem;letter-spacing:0.09em;text-transform:uppercase;
+    color:rgba(22,58,46,0.5);font-weight:600;margin-bottom:1.15rem}
+  .stage{position:relative}
+  .q{animation:fadeUp 0.4s ease both}
+  .q-text{font-family:'Newsreader',serif;font-weight:500;font-size:1.28rem;color:var(--verde);
+    line-height:1.3;margin-bottom:1.1rem}
+  .opts{display:flex;flex-direction:column;gap:0.55rem}
+  .opt{font-family:'Work Sans',sans-serif;font-size:0.98rem;text-align:left;padding:0.8rem 1rem;
+    border:1.5px solid rgba(22,58,46,0.16);border-radius:12px;background:rgba(255,255,255,0.65);
+    color:var(--tinta);cursor:pointer;line-height:1.35;
+    transition:transform .12s ease,box-shadow .15s ease,background .15s ease,border-color .15s ease}
+  .opt:hover:not(:disabled){transform:translateY(-2px);border-color:var(--dorado);
+    box-shadow:0 6px 14px -8px rgba(22,58,46,0.5)}
+  .opt:disabled{cursor:default}
+  .opt.ok{background:var(--verde);color:#F4EFE3;border-color:var(--verde);animation:pop .4s ease}
+  .opt.no{background:var(--rojo);color:#fff;border-color:var(--rojo);animation:shake .4s ease}
+  .foot{margin-top:1.1rem;display:flex;align-items:center;gap:0.9rem;justify-content:space-between;
+    flex-wrap:wrap;min-height:2.4rem}
+  .fb{font-size:0.9rem;color:rgba(22,58,46,0.8);font-style:italic;flex:1;min-width:58%;
+    animation:fadeUp .35s ease both}
+  .btn{font-family:'Work Sans',sans-serif;font-size:0.9rem;font-weight:600;padding:0.6rem 1.25rem;
+    border:none;border-radius:999px;cursor:pointer;background:var(--verde);color:#F4EFE3;
+    white-space:nowrap;transition:transform .12s ease,background .15s ease,box-shadow .15s ease;
+    box-shadow:0 8px 18px -10px rgba(22,58,46,0.7);animation:fadeUp .35s ease both}
+  .btn:hover{background:var(--dorado);transform:translateY(-2px)}
+  .btn:active{transform:translateY(0)}
+  .btn-ghost{background:transparent;color:var(--verde);border:1.5px solid rgba(22,58,46,0.3);box-shadow:none}
+  .btn-ghost:hover{background:var(--verde);color:#F4EFE3}
+  .result{text-align:center;padding:0.4rem 0 0.3rem;animation:popIn .5s cubic-bezier(.2,.8,.2,1) both}
+  .result .emoji{font-size:3rem;line-height:1;margin-bottom:0.5rem;animation:popIn .55s ease both;animation-delay:.1s}
+  .result .maiz-name{font-family:'Newsreader',serif;font-size:1.7rem;color:var(--verde);
+    line-height:1.15;margin-bottom:0.15rem;font-weight:600}
+  .result .score-num{font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--dorado);font-weight:700;margin-bottom:0.7rem}
+  .result .maiz-msg{font-size:1rem;color:var(--tinta);max-width:32ch;margin:0 auto 1.3rem;line-height:1.45}
+  .result-btns{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes popIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
+  @keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.05)}100%{transform:scale(1)}}
+  @keyframes shake{0%,100%{transform:translateX(0)}18%{transform:translateX(-7px)}38%{transform:translateX(7px)}58%{transform:translateX(-5px)}78%{transform:translateX(5px)}}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="card">
+  <p class="top"><span class="dot"></span> Fitosensible · Quiz</p>
+  <h2 class="title">🌽 ¿Qué maíz eres?</h2>
+  <div class="bar"><div class="bar-fill" id="fill"></div></div>
+  <p class="counter" id="counter"></p>
+  <div class="stage" id="stage"></div>
+</div>
+
+<script>
+(function(){
+  // === CONFIG: cambia esto si reutilizas el quiz en otro artículo ===
+  var SHARE_URL = 'https://fitosensible.com/blog/quien-domestico-a-quien';
+  var PER_GAME = 5; // cuántas preguntas por partida
+
+  // === BANCO DE PREGUNTAS (15) ===
+  var BANK = [
+    { q:"Si dejas caer una mazorca entera al suelo y te vas, ¿qué pasa?", o:[
+      {t:"Casi nada: los granos van tan apretados que las plántulas se ahogan entre sí.",ok:true,fb:"¡Exacto! Sin una mano que la desgrane y reparta, se extingue en una sola generación."},
+      {t:"Brota una milpa hermosa ella solita.",ok:false,fb:"Ojalá, pero no. El maíz ya no sabe sembrarse solo: por eso nos necesita."},
+      {t:"Nada, porque le falta permiso de la CONABIO.",ok:false,fb:"Nel. El problema no es el permiso, es la biología: no puede dispersar sus semillas."}
+    ]},
+    { q:"El abuelo silvestre del maíz, ese pasto despeinado, se llama…", o:[
+      {t:"Teocintle",ok:true,fb:"¡Ese mero! Teocintle: “mazorca de los dioses” en náhuatl."},
+      {t:"Maicena",ok:false,fb:"Esa es la de los tamales de caja. El abuelo es el teocintle."},
+      {t:"Elotitle",ok:false,fb:"Suena bonito, pero no. Es teocintle."}
+    ]},
+    { q:"Cocer el maíz con cal (nixtamalizarlo) sirve, sobre todo, para…", o:[
+      {t:"Liberar la niacina (vitamina B3) que si no, no podemos aprovechar.",ok:true,fb:"¡Sí! Libera la niacina que el maíz trae “amarrada”. Sin ese paso, comer puro maíz enferma (pelagra)."},
+      {t:"Darle ese sabor a queso de Doritos.",ok:false,fb:"Jajaja no. Eso es marketing. La cal libera la vitamina B3."},
+      {t:"Pintarlo de azul.",ok:false,fb:"El maíz azul ya nace azul. La cal libera la niacina."}
+    ]},
+    { q:"México tiene casi tantas razas de maíz como…", o:[
+      {t:"Lenguas indígenas que se hablan en el país.",ok:true,fb:"Tal cual: ~64 razas y ~68 lenguas. Donde hubo una lengua, hubo una milpa. 🌽"},
+      {t:"Estados de la República.",ok:false,fb:"Cerca en número, pero la coincidencia bonita es con las lenguas."},
+      {t:"Equipos en la Liga MX.",ok:false,fb:"Ojalá la Liga MX tuviera esa diversidad. Es con las lenguas indígenas."}
+    ]},
+    { q:"La pregunta del millón: tras 9,000 años juntos, ¿quién domesticó a quién?", o:[
+      {t:"Las dos cosas a la vez.",ok:true,fb:"¡Ese es el punto del artículo! Nos volvimos inseparables: un matrimonio sin divorcio. 💚"},
+      {t:"Nosotros al maíz, obvio.",ok:false,fb:"Sí lo domesticamos… pero él nos volvió sedentarios. La respuesta honesta es “las dos cosas”."},
+      {t:"El maíz a nosotros.",ok:false,fb:"Casi: sí nos amarró a la tierra… pero nosotros le desnudamos el grano. Mejor: “las dos cosas”."}
+    ]},
+    { q:"¿Qué son tb1 y tga1, esos que salen en el artículo?", o:[
+      {t:"Dos genes: uno apagó las ramas, el otro desnudó el grano.",ok:true,fb:"¡Sí! Dos “interruptores” que explican buena parte del salto de teocintle a maíz."},
+      {t:"Dos hermanos que domesticaron el maíz en Oaxaca.",ok:false,fb:"No: son genes, no personas."},
+      {t:"Dos razas de maíz de la Sierra de Chihuahua.",ok:false,fb:"Nel, son genes clave de la domesticación."}
+    ]},
+    { q:"El teocintle esparce sus semillas solito y el maíz no. ¿Por qué?", o:[
+      {t:"La espiga del teocintle se quiebra sola y cada grano viaja; la mazorca del maíz se queda entera.",ok:true,fb:"Exacto: el maíz perdió la capacidad de dispersarse. Por eso nos necesita."},
+      {t:"Porque el maíz es más pesado.",ok:false,fb:"No es cuestión de peso, sino de que la mazorca no se desarma sola."},
+      {t:"Porque el teocintle tiene más azúcar y atrae pájaros.",ok:false,fb:"Nel. Es que su espiga es frágil y suelta los granos."}
+    ]},
+    { q:"Comer maíz sin nixtamalizar como alimento principal puede causar…", o:[
+      {t:"Pelagra (las “tres D”: dermatitis, diarrea, demencia).",ok:true,fb:"Sí. Le pasó a regiones que adoptaron el maíz sin la cal."},
+      {t:"Escorbuto.",ok:false,fb:"Ese es por falta de vitamina C. La del maíz sin cal es la pelagra."},
+      {t:"Gastritis maicera.",ok:false,fb:"Esa me la inventé. La buena es la pelagra."}
+    ]},
+    { q:"Según el Popol Vuh, los humanos fuimos hechos de…", o:[
+      {t:"Masa de maíz.",ok:true,fb:"Somos gente de maíz. El mito y la biología, por una vez, coinciden."},
+      {t:"Barro, y quedó a la primera.",ok:false,fb:"El barro fue un intento… que se deshizo. La buena fue el maíz."},
+      {t:"Costillas de jaguar.",ok:false,fb:"Jaja no. Fue masa de maíz."}
+    ]},
+    { q:"La fotosíntesis C4 del maíz, ¿quién inventó ese “truco”?", o:[
+      {t:"Nadie: evolucionó solo en los pastos, millones de años antes que los humanos.",ok:true,fb:"¡Bien leído! El maíz la heredó; no es invento humano."},
+      {t:"Los mayas, junto con la nixtamalización.",ok:false,fb:"Trampa: la nixtamalización sí es humana, pero la C4 no."},
+      {t:"Los mejoradores del CIMMYT en el siglo XX.",ok:false,fb:"Nel: la C4 es muchísimo más vieja que cualquier humano."}
+    ]},
+    { q:"¿Cuántos abuelos silvestres tiene el maíz moderno, según la genómica reciente?", o:[
+      {t:"Dos teocintles: uno de tierras bajas y otro de tierras altas.",ok:true,fb:"Sí: parviglumis y mexicana. Un maíz de dos padres."},
+      {t:"Uno solo, y bien identificado.",ok:false,fb:"Era lo que se creía… hasta que la genómica encontró un segundo."},
+      {t:"Ninguno; el maíz surgió de la nada.",ok:false,fb:"Nel, desciende del teocintle. De dos, de hecho."}
+    ]},
+    { q:"¿Dónde está el banco que resguarda la mayor colección de maíz del mundo?", o:[
+      {t:"En Texcoco, en el CIMMYT.",ok:true,fb:"Ahí mero, desde 1943. Unas 28 mil muestras de maíz."},
+      {t:"En Svalbard, Noruega.",ok:false,fb:"Ese es el famoso del Ártico, pero el rey del maíz está en Texcoco."},
+      {t:"En el Zócalo de la CDMX.",ok:false,fb:"Jaja no. Es el CIMMYT, en Texcoco."}
+    ]},
+    { q:"Una “olotera” sirve para…", o:[
+      {t:"Desgranar mazorcas tallándolas contra olotes secos.",ok:true,fb:"Tal cual. Una rueda de olotes para no lastimarse las manos."},
+      {t:"Hacer palomitas a la leña.",ok:false,fb:"Antojable, pero no. Es para desgranar."},
+      {t:"Medir cuánta cal lleva el nixtamal.",ok:false,fb:"Nel. Es para desgranar mazorcas."}
+    ]},
+    { q:"“Olote” viene del náhuatl olotl, que algunos relacionan con la palabra…", o:[
+      {t:"Yólotl: corazón.",ok:true,fb:"Sí: llevamos 9,000 años desgranando el “corazón” del maíz."},
+      {t:"Atl: agua.",ok:false,fb:"Bonito, pero no. Se relaciona con yólotl, corazón."},
+      {t:"Tlalli: tierra.",ok:false,fb:"Nel. La relación es con yólotl, corazón."}
+    ]},
+    { q:"¿Cuántos años llevamos, más o menos, sembrando maíz?", o:[
+      {t:"Unos 9,000 años.",ok:true,fb:"Ajá. Nueve milenios de matrimonio sin divorcio."},
+      {t:"Unos 200 años, desde que México es país.",ok:false,fb:"Muy poquito: llevamos ~9,000 años."},
+      {t:"Unos 100,000 años.",ok:false,fb:"Demasiado: son ~9,000, no cien mil."}
+    ]}
+  ];
+
+  // === PERSONAJES SEGÚN ACIERTOS (0 a 5) ===
+  var MAIZ = [
+    {name:"Maíz pa’ los puercos", emoji:"🐷", msg:"Ni un grano pegó. Pero tranquilo: hasta el olote sirve para algo. Relee y vuelve."},
+    {name:"Palomita solitaria", emoji:"🍿", msg:"Reventaste una. Es un comienzo. La milpa se siembra de a poco."},
+    {name:"Elote de la esquina", emoji:"🌽", msg:"Ahí la llevas, con tu chilito y limón. Te falta grano, pero vas sabroso."},
+    {name:"Maíz criollo", emoji:"🌱", msg:"Resistente y de buena cepa. Ya traes la milpa en la sangre."},
+    {name:"Cacahuazintle de pozole", emoji:"🍲", msg:"Grande, noble y de fiesta. Casi perfecto: te faltó un granito."},
+    {name:"Maíz cónico de las tierras altas", emoji:"🏔️", msg:"Cultivado en la altura, vibras alto. Eres, oficialmente, hijo del maíz."}
+  ];
+
+  function shuffle(a){
+    a = a.slice();
+    for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; }
+    return a;
+  }
+
+  var stage=document.getElementById('stage');
+  var fill=document.getElementById('fill');
+  var counter=document.getElementById('counter');
+  var game, current, score, total;
+
+  function start(){
+    game = shuffle(BANK).slice(0, Math.min(PER_GAME, BANK.length));
+    total = game.length;
+    current = 0; score = 0;
+    render(0);
+  }
+
+  function render(i){
+    var data = game[i];
+    counter.textContent = 'Pregunta ' + (i+1) + ' de ' + total;
+    fill.style.width = (i/total*100) + '%';
+    try{ window.__correctText = data.o.filter(function(o){return o.ok;})[0].t; }catch(e){}
+    var opts = shuffle(data.o);
+    var q=document.createElement('div'); q.className='q';
+    var h=document.createElement('p'); h.className='q-text'; h.textContent=data.q; q.appendChild(h);
+    var wrap=document.createElement('div'); wrap.className='opts';
+    var buttons=[];
+    opts.forEach(function(op){
+      var b=document.createElement('button'); b.className='opt'; b.type='button'; b.textContent=op.t;
+      b.addEventListener('click', function(){
+        if(q.dataset.done) return;
+        q.dataset.done='1';
+        if(op.ok) score++;
+        buttons.forEach(function(bb,idx){ bb.disabled=true; if(opts[idx].ok) bb.classList.add('ok'); });
+        if(!op.ok) b.classList.add('no');
+        var foot=document.createElement('div'); foot.className='foot';
+        var fb=document.createElement('p'); fb.className='fb'; fb.textContent=op.fb;
+        var next=document.createElement('button'); next.className='btn'; next.type='button';
+        next.textContent = (current===total-1) ? 'Ver mi maíz →' : 'Siguiente →';
+        next.addEventListener('click', advance);
+        foot.appendChild(fb); foot.appendChild(next); q.appendChild(foot);
+      });
+      buttons.push(b); wrap.appendChild(b);
+    });
+    q.appendChild(wrap);
+    stage.innerHTML=''; stage.appendChild(q);
+  }
+
+  function advance(){ current++; if(current>=total) finish(); else render(current); }
+
+  function finish(){
+    fill.style.width='100%'; counter.textContent='Resultado';
+    var maiz = MAIZ[Math.max(0, Math.min(score, MAIZ.length-1))];
+    var r=document.createElement('div'); r.className='result';
+    var e=document.createElement('div'); e.className='emoji'; e.textContent=maiz.emoji;
+    var name=document.createElement('p'); name.className='maiz-name'; name.textContent=maiz.name;
+    var sc=document.createElement('p'); sc.className='score-num'; sc.textContent=score+' de '+total+' aciertos';
+    var m=document.createElement('p'); m.className='maiz-msg'; m.textContent=maiz.msg;
+    var btns=document.createElement('div'); btns.className='result-btns';
+    var share=document.createElement('button'); share.className='btn'; share.type='button';
+    share.textContent='Compartir mi maíz 🌽';
+    share.addEventListener('click', function(){
+      var txt='Resulté “'+maiz.name+'” '+maiz.emoji+' en el quiz del maíz de Fitosensible. ¿Y tú qué maíz eres? 🌽';
+      var url='https://wa.me/?text=' + encodeURIComponent(txt + ' ' + SHARE_URL);
+      window.open(url, '_blank');
+    });
+    var retry=document.createElement('button'); retry.className='btn btn-ghost'; retry.type='button';
+    retry.textContent='↻ Otra ronda';
+    retry.addEventListener('click', start);
+    btns.appendChild(share); btns.appendChild(retry);
+    r.appendChild(e); r.appendChild(name); r.appendChild(sc); r.appendChild(m); r.appendChild(btns);
+    stage.innerHTML=''; stage.appendChild(r);
+  }
+
+  // Ajusta la altura del iframe a su contenido (mismo dominio => puede tocar su propio frame).
+  function fitHeight(){
+    try{
+      var c=document.querySelector('.card'); if(!c) return;
+      var h=Math.ceil(c.getBoundingClientRect().height)+20;
+      if(window.frameElement){ window.frameElement.style.height = h + 'px'; }
+    }catch(e){}
+  }
+  if(window.ResizeObserver){ try{ new ResizeObserver(fitHeight).observe(document.querySelector('.card')); }catch(e){} }
+  window.addEventListener('load', fitHeight);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitHeight); }
+
+  start();
+  fitHeight();
+})();
+</script>
+</body>
+</html>

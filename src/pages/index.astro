@@ -1,12 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog'))
+    .sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
 ---
 <html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Fitosensible — Las plantas sienten más de lo que crees</title>
-		<meta name="description" content="Divulgación científica sobre cómo las plantas perciben el mundo y responden a él, por Pedro Jiménez-Sandoval." />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<title>Fitosensible — La vida secreta de las plantas</title>
+		<meta name="description" content="Divulgación científica sobre el mundo de las plantas: cómo perciben, cómo evolucionan y cómo se entrelazan con nosotros. Por Pedro Jiménez-Sandoval." />		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 	</head>
@@ -34,9 +36,10 @@
 				<p class="eyebrow">Divulgación científica</p>
 				<h1>Las plantas sienten<br />más de lo que crees.</h1>
 				<p class="deck">
-					No tienen ojos ni nervios, pero perciben la luz, la gravedad, las estaciones
-					y hasta el momento en que un insecto empieza a comerse una hoja —y responden—.
-					Aquí cuento su vida sensible, en lenguaje claro y para todos.
+    				No tienen ojos ni nervios, pero perciben la luz, la gravedad, las estaciones
+   			 		y hasta el momento en que un insecto empieza a comerse una hoja —y responden—.
+   				 	Aquí cuento cómo sienten el mundo, cómo se relacionan con él y cómo han terminado
+    				entrelazadas con nuestra propia historia. En lenguaje claro y para todos.
 				</p>
 				<p class="proposito">
 					Ciencia de frontera contada en español: una apuesta por el acceso universal al conocimiento
@@ -48,10 +51,12 @@
 				<p class="eyebrow">Artículos</p>
 				<h2 class="seccion-titulo">Lo más reciente</h2>
 				<div class="temas">
-					<a class="tema" href="/blog/como-se-entera-una-planta">
-						<h3>Cómo se entera una planta de que la están mordiendo</h3>
-						<p>Un misterio de más de cien años: cómo una planta avisa a todo su cuerpo cuando la atacan.</p>
-					</a>
+    				{posts.map((post) => (
+       					<a class="tema" href={`/blog/${post.id}`}>
+            				<h3>{post.data.titulo}</h3>
+            				<p>{post.data.descripcion}</p>
+        				</a>
+    				))}
 				</div>
 			</section>
 		</main>
@@ -59,10 +64,11 @@
 		<!-- FOOTER -->
 		<footer class="footer">
 			<p class="acerca">
-				<strong>Fitosensible</strong> es un proyecto de divulgación científica sobre cómo las
-				plantas perciben el mundo y responden a él, creado por Pedro Jiménez-Sandoval,
-				Doctor en Ciencias por el Cinvestav (México) e investigador en la Universidad de
-				Lausanne (Suiza). Miembro del SNII Nivel 1 (México).
+    			<strong>Fitosensible</strong> es un proyecto de divulgación científica sobre el
+    			mundo de las plantas —cómo perciben, cómo evolucionan y cómo se entrelazan con
+   			 	nosotros—, creado por Pedro Jiménez-Sandoval, Doctor en Ciencias por el Cinvestav
+  			  	(México) e investigador en la Universidad de Lausanne (Suiza). Miembro del SNII
+  			  	Nivel 1 (México).
 			</p>
 			<p class="descargo">
 				Proyecto personal. Las opiniones son propias y no representan a ninguna institución.

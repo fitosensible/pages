@@ -93,7 +93,6 @@ const descripcionSocial = descripcion || titulo;
 		<footer class="footer">
 		<a class="volver" href="/">← Volver a Fitosensible</a>
 		</footer>
-
 		<script>
 			const boton = document.getElementById('copiar');
 			if (boton) {
@@ -109,6 +108,120 @@ const descripcionSocial = descripcion || titulo;
 					}
 				});
 			}
+		</script>
+
+		<!-- MOTOR DEL QUIZ (una pregunta a la vez, barra de progreso, marcador y reintentar) -->
+		<script>
+			(function () {
+				function initQuiz(quiz) {
+					var questions = Array.prototype.slice.call(quiz.querySelectorAll('.quiz-q'));
+					var total = questions.length;
+					if (!total) return;
+					var current = 0;
+					var score = 0;
+
+					var bar = document.createElement('div');
+					bar.className = 'quiz-bar';
+					var fill = document.createElement('div');
+					fill.className = 'quiz-bar-fill';
+					bar.appendChild(fill);
+					var title = quiz.querySelector('.quiz-title');
+					title.parentNode.insertBefore(bar, title.nextSibling);
+
+					var counter = document.createElement('p');
+					counter.className = 'quiz-counter';
+					bar.parentNode.insertBefore(counter, bar.nextSibling);
+
+					var nav = document.createElement('div');
+					nav.className = 'quiz-nav';
+					var fb = document.createElement('p');
+					fb.className = 'quiz-fb';
+					var next = document.createElement('button');
+					next.className = 'quiz-next';
+					next.type = 'button';
+					next.textContent = 'Siguiente →';
+					next.style.display = 'none';
+					nav.appendChild(fb);
+					nav.appendChild(next);
+
+					var result = document.createElement('div');
+					result.className = 'quiz-result';
+					result.style.display = 'none';
+
+					quiz.appendChild(nav);
+					quiz.appendChild(result);
+
+					function show(i) {
+						questions.forEach(function (q, idx) { q.style.display = idx === i ? 'block' : 'none'; });
+						counter.textContent = 'Pregunta ' + (i + 1) + ' de ' + total;
+						fill.style.width = (i / total) * 100 + '%';
+						fb.textContent = '';
+						next.style.display = 'none';
+					}
+
+					function finish() {
+						questions.forEach(function (q) { q.style.display = 'none'; });
+						nav.style.display = 'none';
+						counter.style.display = 'none';
+						fill.style.width = '100%';
+						var msg;
+						if (score === total) msg = '¡' + score + '/' + total + '! Eres oficialmente hijo del maíz. 🌽👑';
+						else if (score >= Math.ceil(total * 0.6)) msg = score + '/' + total + '. Nada mal, ya traes la milpa en la sangre. 🌱';
+						else msg = score + '/' + total + '. Uy, relee el artículo y vuelve por la revancha. 😉';
+						result.innerHTML = '<p class="quiz-score">' + msg + '</p>';
+						var retry = document.createElement('button');
+						retry.className = 'quiz-retry';
+						retry.type = 'button';
+						retry.textContent = '↻ Reintentar';
+						retry.addEventListener('click', reset);
+						result.appendChild(retry);
+						result.style.display = 'block';
+					}
+
+					function reset() {
+						current = 0; score = 0;
+						questions.forEach(function (q) {
+							q.classList.remove('done');
+							q.querySelectorAll('.quiz-opts button').forEach(function (b) {
+								b.classList.remove('ok', 'no');
+								b.disabled = false;
+							});
+						});
+						result.style.display = 'none';
+						nav.style.display = '';
+						counter.style.display = '';
+						show(0);
+					}
+
+					quiz.addEventListener('click', function (e) {
+						var btn = e.target.closest('.quiz-opts button');
+						if (!btn) return;
+						var q = btn.closest('.quiz-q');
+						if (q.classList.contains('done')) return;
+						q.classList.add('done');
+						var correct = btn.hasAttribute('data-ok');
+						if (correct) score++;
+						q.querySelectorAll('.quiz-opts button').forEach(function (b) {
+							if (b.hasAttribute('data-ok')) b.classList.add('ok');
+							b.disabled = true;
+						});
+						btn.classList.add(correct ? 'ok' : 'no');
+						fb.textContent = btn.getAttribute('data-fb') || '';
+						next.textContent = (current === total - 1) ? 'Ver resultado →' : 'Siguiente →';
+						next.style.display = 'inline-block';
+					});
+
+					next.addEventListener('click', function () {
+						current++;
+						if (current >= total) finish();
+						else show(current);
+					});
+
+					show(0);
+				}
+
+				document.querySelectorAll('[data-quiz]').forEach(initQuiz);
+			})();
 		</script>
 
 		<style is:global>
@@ -181,6 +294,124 @@ const descripcionSocial = descripcion || titulo;
 			:global(.cuerpo em) { color: rgba(27,42,34,0.75); }
 			:global(.cuerpo a) { color: var(--dorado); text-decoration: underline; }
 			:global(.cuerpo hr) { border: none; border-top: 1px solid rgba(27,42,34,0.15); margin: 2.5rem 0; }
+			:global(.cuerpo figure) {
+    			margin: 2.5rem 0;
+    			text-align: center;
+			}
+			:global(.cuerpo img) {
+    			max-width: 100%;
+    			height: auto;
+    			border-radius: 8px;
+    			display: block;
+    			margin: 0 auto;
+			}
+			:global(.cuerpo figcaption) {
+    			font-size: 0.85rem;
+    			color: rgba(27,42,34,0.6);
+    			line-height: 1.5;
+    			margin-top: 0.7rem;
+    			font-style: italic;
+			}
+			/* Estilo para citas destacadas */
+			.pull-quote {
+    			margin: 2.5rem 0;
+    			padding-left: 1.2rem;
+    			border-left: 4px solid var(--dorado);
+    			font-family: inherit; /* Hereda Work Sans */
+    			font-size: 1rem;      /* El mismo tamaño que tus párrafos */
+    			font-style: italic;
+    			color: var(--tinta);  /* El mismo color que el texto normal */
+    			max-width: 46ch;
+			}
+			/* Esto asegura que cualquier small dentro de una figura en .cuerpo tenga este estilo */
+			.cuerpo figure figcaption small {
+    			display: block !important;
+    			font-size: 0.75rem !important;
+    			color: #666 !important;
+    			line-height: 1.2 !important;
+    			margin-top: 0.5rem !important;
+			}
+			:global(.cuerpo figcaption a) {
+    			color: var(--dorado);
+			}
+			:global(.cuerpo figure figcaption .credito) {
+    			display: block !important;
+    			font-size: 0.72rem !important;
+    			color: rgba(27,42,34,0.5) !important;
+    			margin-top: 0.3rem !important;
+    			font-style: normal !important;
+    			background: transparent !important;
+			}
+
+			/* QUIZ */
+			:global(.cuerpo .quiz) {
+				margin: 3.5rem 0 1rem;
+				padding: 1.8rem 1.6rem;
+				border: 1px solid rgba(27,42,34,0.18);
+				border-radius: 12px;
+				background: rgba(255,255,255,0.35);
+			}
+			:global(.cuerpo .quiz-top) {
+				font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
+				color: var(--dorado); font-weight: 600; margin-bottom: 0.3rem !important;
+			}
+			:global(.cuerpo .quiz-title) {
+				font-family: 'Newsreader', serif; font-weight: 500; font-size: 1.5rem;
+				color: var(--verde); margin: 0 0 1rem !important;
+			}
+			:global(.cuerpo .quiz-bar) {
+				height: 6px; background: rgba(27,42,34,0.12); border-radius: 999px;
+				overflow: hidden; margin-bottom: 0.5rem;
+			}
+			:global(.cuerpo .quiz-bar-fill) {
+				height: 100%; width: 0; background: var(--dorado);
+				border-radius: 999px; transition: width 0.35s ease;
+			}
+			:global(.cuerpo .quiz-counter) {
+				font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+				color: rgba(27,42,34,0.55); margin-bottom: 1.3rem !important;
+			}
+			:global(.cuerpo .quiz-qp) {
+				font-weight: 600; color: var(--verde); font-size: 1.1rem;
+				margin-bottom: 0.9rem !important;
+			}
+			:global(.cuerpo .quiz-opts) { display: flex; flex-direction: column; gap: 0.5rem; }
+			:global(.cuerpo .quiz-opts button) {
+				font-family: 'Work Sans', sans-serif; font-size: 0.98rem; text-align: left;
+				padding: 0.7rem 1rem; border: 1px solid rgba(27,42,34,0.2); border-radius: 10px;
+				background: var(--papel); color: var(--tinta); cursor: pointer;
+				transition: all 0.15s; line-height: 1.4;
+			}
+			:global(.cuerpo .quiz-opts button:hover:not(:disabled)) { border-color: var(--dorado); }
+			:global(.cuerpo .quiz-opts button:disabled) { cursor: default; opacity: 1; }
+			:global(.cuerpo .quiz-opts button.ok) {
+				background: var(--verde); color: var(--papel); border-color: var(--verde);
+			}
+			:global(.cuerpo .quiz-opts button.no) {
+				background: #b23a3a; color: #fff; border-color: #b23a3a;
+			}
+			:global(.cuerpo .quiz-nav) {
+				margin-top: 1rem; display: flex; align-items: center;
+				justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+			}
+			:global(.cuerpo .quiz-fb) {
+				font-size: 0.9rem; color: rgba(27,42,34,0.75); font-style: italic;
+				margin: 0 !important; flex: 1; min-width: 55%;
+			}
+			:global(.cuerpo .quiz-next), :global(.cuerpo .quiz-retry) {
+				font-family: 'Work Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+				padding: 0.5rem 1.1rem; border: none; border-radius: 999px;
+				background: var(--verde); color: var(--papel); cursor: pointer;
+				transition: all 0.15s; white-space: nowrap;
+			}
+			:global(.cuerpo .quiz-next:hover), :global(.cuerpo .quiz-retry:hover) {
+				background: var(--dorado);
+			}
+			:global(.cuerpo .quiz-result) { text-align: center; padding: 1rem 0 0.5rem; }
+			:global(.cuerpo .quiz-score) {
+				font-family: 'Newsreader', serif; font-size: 1.35rem; color: var(--verde);
+				margin-bottom: 1.2rem !important; line-height: 1.3;
+			}
 
 			/* COMPARTIR */
 			.compartir {
