@@ -453,6 +453,17 @@ const descripcionSocial = descripcion || titulo;
 			.footer .firma { font-weight: 600; color: var(--verde); }
 			.footer .volver { color: var(--dorado); text-decoration: none; }
 			.footer .volver:hover { text-decoration: underline; }
+		
+			/* ── MÓVIL: más texto por renglón ── */
+			@media (max-width: 640px) {
+				.articulo {
+					padding: 2rem 1.1rem 1.5rem;
+				}
+				.cuerpo {
+					font-size: 1.02rem;
+					line-height: 1.65;
+				}
+			}
 		</style>
 	</body>
 </html>
