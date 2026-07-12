@@ -20,7 +20,7 @@
     background:radial-gradient(120% 90% at 50% 6%, var(--bg-a) 0%, var(--bg-b) 70%, #bfd0b8 100%);
     min-height:100dvh;display:flex;align-items:center;justify-content:center;
     padding:clamp(6px,2vw,18px);-webkit-font-smoothing:antialiased}
-  .game{width:100%;max-width:720px;display:flex;flex-direction:column;gap:clamp(8px,1.8vw,12px)}
+  .game{width:100%;max-width:520px;display:flex;flex-direction:column;gap:clamp(8px,1.8vw,12px)}
   .eyebrow{font-weight:800;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
     color:var(--leaf-d);display:flex;align-items:center;gap:.5em;margin:0}
   .eyebrow .dot{width:.5em;height:.5em;border-radius:50%;background:var(--flower);box-shadow:0 0 0 3px rgba(236,194,75,.28)}
@@ -36,7 +36,7 @@
   .b.enz i{background:linear-gradient(90deg,var(--legh),#f2a8b4)}
   .b.pl i{background:linear-gradient(90deg,var(--leaf-d),#8fbc63)}
 
-  .stage{position:relative;border-radius:24px;overflow:hidden;touch-action:none;aspect-ratio:1/0.95;background:#2a2016;
+  .stage{position:relative;border-radius:24px;overflow:hidden;touch-action:none;aspect-ratio:1/1.1;background:#2a2016;
     box-shadow:inset 0 2px 0 rgba(255,255,255,.5),0 16px 30px -20px var(--shadow),0 5px 12px -10px var(--shadow)}
   canvas{display:block;width:100%;height:100%}
 
@@ -318,45 +318,8 @@ function dibujar(RAIZ,seguro,dentro){
     ctx.quadraticCurveTo(x+Math.sin(G.t*.03+x)*3, RAIZ+l*.6, x+Math.sin(G.t*.03+x)*4, RAIZ+l);
     ctx.stroke();
   }
-  // ── LETRERO DE ENTREGA: grande, con pulso y flechas
-  const listo = (G.lleva===2);              // ¿traigo nitrógeno convertido?
-  const pul = 1 + Math.sin(G.t*.09)*.06;
-  ctx.save();
-  ctx.textAlign='center';
-
-  // resplandor cuando ya traes la entrega lista
-  if(listo){
-    const gl=ctx.createLinearGradient(0,0,0,RAIZ+22);
-    gl.addColorStop(0,'rgba(126,201,107,.35)');
-    gl.addColorStop(1,'rgba(126,201,107,0)');
-    ctx.fillStyle=gl; ctx.fillRect(0,0,W,RAIZ+22);
-  }
-
-  // flechas grandes apuntando arriba, a los lados
-  const fcol = listo ? 'rgba(126,201,107,.95)' : 'rgba(251,246,233,.55)';
-  [W*0.16, W*0.84].forEach(fx=>{
-    const off = Math.sin(G.t*.11)*3;
-    ctx.fillStyle=fcol;
-    ctx.beginPath();
-    ctx.moveTo(fx, RAIZ-26+off);
-    ctx.lineTo(fx-9, RAIZ-13+off);
-    ctx.lineTo(fx-4, RAIZ-13+off);
-    ctx.lineTo(fx-4, RAIZ-4+off);
-    ctx.lineTo(fx+4, RAIZ-4+off);
-    ctx.lineTo(fx+4, RAIZ-13+off);
-    ctx.lineTo(fx+9, RAIZ-13+off);
-    ctx.closePath(); ctx.fill();
-  });
-
-  // texto grande
-  ctx.translate(W/2, RAIZ-14);
-  ctx.scale(listo?pul:1, listo?pul:1);
-  ctx.font='700 16px Fredoka, system-ui';
-  ctx.lineWidth=3.5; ctx.strokeStyle='rgba(40,28,16,.55)';
-  ctx.strokeText('ENTREGA AQUÍ',0,0);
-  ctx.fillStyle = listo ? '#b6f0a2' : 'rgba(251,246,233,.92)';
-  ctx.fillText('ENTREGA AQUÍ',0,0);
-  ctx.restore();
+  ctx.fillStyle='rgba(251,246,233,.85)';ctx.font='700 11px Fredoka, system-ui';ctx.textAlign='center';
+  ctx.fillText('▲ LA RAÍZ — entrega aquí',W/2,RAIZ-11);
 
   // ── REFUGIOS (leghemoglobina): donde SÍ se puede fijar
   G.ref.forEach(r=>{

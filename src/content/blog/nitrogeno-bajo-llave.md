@@ -81,7 +81,7 @@ Asómate a una milpa de verdad y no verás lo que un campo industrial te enseñ�
     </figcaption>
 </figure>
 
-Y aquí conviene detenerse, porque hay una confusión muy común —yo mismo crecí con ella—. Mucha gente usa "milpa" como sinónimo de "maizal", o hasta de una sola planta de maíz: mi papá decía "no me pises la milpa" señalando una mata sola. La palabra viene del náhuatl y nombraba, en efecto, la parcela sembrada. Pero lo que los pueblos del centro y del sur de México llaman milpa —y lo que la hace especial— no es el maíz a secas, sino la asociación: varias especies sembradas juntas que se sostienen unas a otras. Confundir la milpa con un campo de puro maíz es como confundir una orquesta con un solo instrumento.
+Aquí hay que aclarar algo, porque es una confusión muy común —yo mismo crecí con ella—. Mucha gente usa "milpa" como sinónimo de "maizal", o hasta de una sola planta de maíz: mi papá decía "no me pises la milpa" señalando una mata sola. La palabra viene del náhuatl y nombraba, en efecto, la parcela sembrada. Pero lo que los pueblos del centro y del sur de México llaman milpa —y lo que la hace especial— no es el maíz a secas, sino la asociación: varias especies sembradas juntas que se sostienen unas a otras. Confundir la milpa con un campo de puro maíz es como confundir una orquesta con un solo instrumento.
 
 El maíz, el frijol y la calabaza forman el corazón de la milpa, y su convivencia es un tratado de ayuda mutua. En el norte del continente, los pueblos originarios bautizaron a este trío "las tres hermanas" —un nombre que en México casi no usamos, pero que retrata bien lo que son: familia que se cuida—. El maíz le presta al frijol el tronco que a este le falta para trepar hacia la luz. El frijol, ya lo sabemos, fija nitrógeno con sus rizobios y alimenta a las tres. Y la calabaza extiende su follaje como un manto que le da sombra al suelo, guarda la humedad y ahoga a las malas hierbas; sus tallos y hojas, ásperos de pelillos rígidos, le complican la vida a más de un insecto hambriento. Y hay una defensa mayor, que no es de ninguna de las tres por separado: en una milpa revuelta, las plagas se confunden. Un monocultivo es un bufet de una sola cosa; la milpa, un enredo que desorienta.
 
@@ -188,7 +188,20 @@ Yo aprendí todo esto sin saberlo, de niño, en un terreno con mezquites, con lo
 
 La milpa no es folclor ni es pasado. Es una de las tecnologías más sabias que hemos tenido, y la respuesta a preguntas que apenas hoy la ciencia se anima a hacer. La cuidó gente humilde durante miles de años. *Desde enantes*, diría mi abuelita. Ojalá sepamos no perderla.
 
-<div style="margin:2.5rem auto;max-width:480px">
+<style>
+  .fs-actividad{margin:2.5rem auto; max-width:88%}
+  @media (max-width:640px){
+    .fs-actividad{
+      max-width:none;
+      width:100vw;
+      margin-left:50%;
+      transform:translateX(-50%);
+      padding:0 8px;
+    }
+  }
+</style>
+
+<div class="fs-actividad">
   <p style="font-weight:700;text-align:center;margin:0 0 .6rem">
     🦠🔮 Elige tu experiencia: <em>rizobio o tarot de la milpa</em>
   </p>
