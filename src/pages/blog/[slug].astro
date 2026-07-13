@@ -83,17 +83,17 @@ const descripcionSocial = descripcion || titulo;
 			</div>
 
 			<!-- COMPARTIR -->
-            <div class="compartir">
-                <p class="compartir-titulo">¿Te gustó? Compártelo</p>
-                <div class="compartir-botones">
-                    <a href={`https://wa.me/?text=${textoCompartir}%20${urlCodificada}`} target="_blank" rel="noopener">WhatsApp</a>
-                    <a href={`https://x.com/intent/tweet?text=${textoCompartir}&url=${urlCodificada}`} target="_blank" rel="noopener">X</a>
-                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${urlCodificada}`} target="_blank" rel="noopener">Facebook</a>
-                    <button id="copiar" data-url={urlArticulo}>Copiar enlace</button>
-                </div>
-            </div>
+			<div class="compartir">
+				<p class="compartir-titulo">¿Te gustó? Compártelo</p>
+				<div class="compartir-botones">
+					<a href={`https://wa.me/?text=${textoCompartir}%20${urlCodificada}`} target="_blank" rel="noopener">WhatsApp</a>
+					<a href={`https://x.com/intent/tweet?text=${textoCompartir}&url=${urlCodificada}`} target="_blank" rel="noopener">X</a>
+					<a href={`https://www.facebook.com/sharer/sharer.php?u=${urlCodificada}`} target="_blank" rel="noopener">Facebook</a>
+					<button id="copiar" data-url={urlArticulo}>Copiar enlace</button>
+				</div>
+			</div>
 
-            <SigueLeyendo actual={post.id} />
+			<SigueLeyendo actual={post.id} />
 			<CanalWhatsApp />
 		</main>
 
@@ -237,6 +237,7 @@ const descripcionSocial = descripcion || titulo;
 				--verde: #163A2E;
 				--tinta: #1B2A22;
 				--dorado: #C08A2D;
+				--dorado-claro: #D4A24C;
 			}
 			* { box-sizing: border-box; padding: 0; }
 			body {
@@ -282,37 +283,38 @@ const descripcionSocial = descripcion || titulo;
 			}
 
 			.cuerpo { font-size: 1.15rem; }
-			:global(.cuerpo h2) {
+			.cuerpo h2 {
 				font-family: 'Newsreader', serif; font-weight: 500;
 				font-size: 1.7rem; color: var(--verde);
 				margin-top: 2.8rem !important; margin-bottom: 1rem !important;
 			}
-			:global(.cuerpo p),
-			:global(.cuerpo > p),
-			.cuerpo :global(p) {
-			margin-bottom: 1.4rem !important;
+			.cuerpo p {
+				margin-bottom: 1.4rem !important;
 			}
-			:global(.cuerpo h2),
-			.cuerpo :global(h2) {
-			margin-top: 2.8rem !important;
-			margin-bottom: 1rem !important;
+			.cuerpo strong { color: var(--verde); }
+			.cuerpo em { color: rgba(27,42,34,0.75); }
+
+			/* ENLACES — incluye :visited, que si no sale morado del navegador */
+			.cuerpo a,
+			.cuerpo a:visited {
+				color: var(--dorado);
+				text-decoration: underline;
 			}
-			:global(.cuerpo strong) { color: var(--verde); }
-			:global(.cuerpo em) { color: rgba(27,42,34,0.75); }
-			:global(.cuerpo a) { color: var(--dorado); text-decoration: underline; }
-			:global(.cuerpo hr) { border: none; border-top: 1px solid rgba(27,42,34,0.15); margin: 2.5rem 0; }
-			:global(.cuerpo figure) {
+			.cuerpo a:hover { color: var(--verde); }
+
+			.cuerpo hr { border: none; border-top: 1px solid rgba(27,42,34,0.15); margin: 2.5rem 0; }
+			.cuerpo figure {
     			margin: 2.5rem 0;
     			text-align: center;
 			}
-			:global(.cuerpo img) {
+			.cuerpo img {
     			max-width: 100%;
     			height: auto;
     			border-radius: 8px;
     			display: block;
     			margin: 0 auto;
 			}
-			:global(.cuerpo figcaption) {
+			.cuerpo figcaption {
     			font-size: 0.85rem;
     			color: rgba(27,42,34,0.6);
     			line-height: 1.5;
@@ -338,10 +340,10 @@ const descripcionSocial = descripcion || titulo;
     			line-height: 1.2 !important;
     			margin-top: 0.5rem !important;
 			}
-			:global(.cuerpo figcaption a) {
+			.cuerpo figcaption a {
     			color: var(--dorado);
 			}
-			:global(.cuerpo figure figcaption .credito) {
+			.cuerpo figure figcaption .credito {
     			display: block !important;
     			font-size: 0.72rem !important;
     			color: rgba(27,42,34,0.5) !important;
@@ -350,72 +352,112 @@ const descripcionSocial = descripcion || titulo;
     			background: transparent !important;
 			}
 
+			/* ─────────────────────────────────────────────
+			   REFERENCIAS ("Para saber más")
+			   Envolver la sección en <div class="refs"> dentro
+			   del .md, dejando una línea en blanco después de
+			   abrir el div y antes de cerrarlo.
+			   ───────────────────────────────────────────── */
+			.cuerpo .refs {
+				margin-top: 3.5rem;
+				padding-top: 1.8rem;
+				border-top: 1px solid rgba(27,42,34,0.15);
+				font-size: 0.88rem;
+				line-height: 1.6;
+				color: rgba(27,42,34,0.72);
+			}
+			.cuerpo .refs h2 {
+				font-family: 'Work Sans', sans-serif !important;
+				font-size: 0.8rem !important;
+				font-weight: 600 !important;
+				letter-spacing: 0.14em;
+				text-transform: uppercase;
+				color: var(--dorado) !important;
+				margin-top: 0 !important;
+				margin-bottom: 1.5rem !important;
+			}
+			.cuerpo .refs p {
+				margin-bottom: 0.7rem !important;
+			}
+			.cuerpo .refs strong {
+				color: var(--verde);
+				font-size: 0.92rem;
+			}
+			.cuerpo .refs ul {
+				padding-left: 1.2rem;
+				margin-bottom: 1.6rem;
+			}
+			.cuerpo .refs li {
+				margin-bottom: 0.7rem;
+			}
+			.cuerpo .refs li:last-child { margin-bottom: 0; }
+
 			/* QUIZ */
-			:global(.cuerpo .quiz) {
+			.cuerpo .quiz {
 				margin: 3.5rem 0 1rem;
 				padding: 1.8rem 1.6rem;
 				border: 1px solid rgba(27,42,34,0.18);
 				border-radius: 12px;
 				background: rgba(255,255,255,0.35);
 			}
-			:global(.cuerpo .quiz-top) {
+			.cuerpo .quiz-top {
 				font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase;
 				color: var(--dorado); font-weight: 600; margin-bottom: 0.3rem !important;
 			}
-			:global(.cuerpo .quiz-title) {
+			.cuerpo .quiz-title {
 				font-family: 'Newsreader', serif; font-weight: 500; font-size: 1.5rem;
 				color: var(--verde); margin: 0 0 1rem !important;
 			}
-			:global(.cuerpo .quiz-bar) {
+			.cuerpo .quiz-bar {
 				height: 6px; background: rgba(27,42,34,0.12); border-radius: 999px;
 				overflow: hidden; margin-bottom: 0.5rem;
 			}
-			:global(.cuerpo .quiz-bar-fill) {
+			.cuerpo .quiz-bar-fill {
 				height: 100%; width: 0; background: var(--dorado);
 				border-radius: 999px; transition: width 0.35s ease;
 			}
-			:global(.cuerpo .quiz-counter) {
+			.cuerpo .quiz-counter {
 				font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
 				color: rgba(27,42,34,0.55); margin-bottom: 1.3rem !important;
 			}
-			:global(.cuerpo .quiz-qp) {
+			.cuerpo .quiz-qp {
 				font-weight: 600; color: var(--verde); font-size: 1.1rem;
 				margin-bottom: 0.9rem !important;
 			}
-			:global(.cuerpo .quiz-opts) { display: flex; flex-direction: column; gap: 0.5rem; }
-			:global(.cuerpo .quiz-opts button) {
+			.cuerpo .quiz-opts { display: flex; flex-direction: column; gap: 0.5rem; }
+			.cuerpo .quiz-opts button {
 				font-family: 'Work Sans', sans-serif; font-size: 0.98rem; text-align: left;
 				padding: 0.7rem 1rem; border: 1px solid rgba(27,42,34,0.2); border-radius: 10px;
 				background: var(--papel); color: var(--tinta); cursor: pointer;
 				transition: all 0.15s; line-height: 1.4;
 			}
-			:global(.cuerpo .quiz-opts button:hover:not(:disabled)) { border-color: var(--dorado); }
-			:global(.cuerpo .quiz-opts button:disabled) { cursor: default; opacity: 1; }
-			:global(.cuerpo .quiz-opts button.ok) {
+			.cuerpo .quiz-opts button:hover:not(:disabled) { border-color: var(--dorado); }
+			.cuerpo .quiz-opts button:disabled { cursor: default; opacity: 1; }
+			.cuerpo .quiz-opts button.ok {
 				background: var(--verde); color: var(--papel); border-color: var(--verde);
 			}
-			:global(.cuerpo .quiz-opts button.no) {
+			.cuerpo .quiz-opts button.no {
 				background: #b23a3a; color: #fff; border-color: #b23a3a;
 			}
-			:global(.cuerpo .quiz-nav) {
+			.cuerpo .quiz-nav {
 				margin-top: 1rem; display: flex; align-items: center;
 				justify-content: space-between; gap: 1rem; flex-wrap: wrap;
 			}
-			:global(.cuerpo .quiz-fb) {
+			.cuerpo .quiz-fb {
 				font-size: 0.9rem; color: rgba(27,42,34,0.75); font-style: italic;
 				margin: 0 !important; flex: 1; min-width: 55%;
 			}
-			:global(.cuerpo .quiz-next), :global(.cuerpo .quiz-retry) {
+			.cuerpo .quiz-next, .cuerpo .quiz-retry {
 				font-family: 'Work Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
 				padding: 0.5rem 1.1rem; border: none; border-radius: 999px;
 				background: var(--verde); color: var(--papel); cursor: pointer;
 				transition: all 0.15s; white-space: nowrap;
 			}
-			:global(.cuerpo .quiz-next:hover), :global(.cuerpo .quiz-retry:hover) {
+			.cuerpo .quiz-next:hover, .cuerpo .quiz-retry:hover {
 				background: var(--dorado);
 			}
-			:global(.cuerpo .quiz-result) { text-align: center; padding: 1rem 0 0.5rem; }
-			:global(.cuerpo .quiz-score) {
+			.cuerpo .quiz-result { text-align: center; padding: 1rem 0 0.5rem; }
+			.cuerpo .quiz-score {
 				font-family: 'Newsreader', serif; font-size: 1.35rem; color: var(--verde);
 				margin-bottom: 1.2rem !important; line-height: 1.3;
 			}
@@ -460,7 +502,7 @@ const descripcionSocial = descripcion || titulo;
 			.footer .firma { font-weight: 600; color: var(--verde); }
 			.footer .volver { color: var(--dorado); text-decoration: none; }
 			.footer .volver:hover { text-decoration: underline; }
-		
+
 			/* ── MÓVIL: más texto por renglón ── */
 			@media (max-width: 640px) {
 				.articulo {

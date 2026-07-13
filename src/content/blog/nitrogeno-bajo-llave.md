@@ -249,6 +249,8 @@ https://open.spotify.com/embed/playlist/0g7lYog9WusEOnDRtoBT3h?utm_source=genera
   </p>
 </div>
 
+<div class="refs">
+
 ## Para saber más
 
 **Fijación de nitrógeno en el maíz**
@@ -270,3 +272,5 @@ https://open.spotify.com/embed/playlist/0g7lYog9WusEOnDRtoBT3h?utm_source=genera
 - Kloppenburg, J., Calderón, C. I. y Ané, J.-M. (2024). [The Nagoya Protocol and nitrogen-fixing maize: Close encounters between Indigenous Oaxacans and the men from Mars (Inc.)](https://doi.org/10.1525/elementa.2023.00115). Elementa: Science of the Anthropocene 12(1): 00115.
 - Animal Político (2018). [El reportaje que destapó el caso del maíz olotón y el acuerdo con Mars Inc.](https://www.animalpolitico.com/2018/11/dos-universidades-publicas-de-eu-y-una-trasnacional-piratean-maiz-oaxaqueno)
 - EDUCA Oaxaca. [Documentación del caso como biopiratería y del papel del Protocolo de Nagoya](https://www.educaoaxaca.org/biopirateria-en-el-caso-del-maiz-oloton-en-acuerdo-con-totontepec-mars-inc-se-queda-con-99-de-las-ganancias/).
+
+</div>

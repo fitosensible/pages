@@ -167,27 +167,34 @@ Y una última, que me parece justicia poética: *olote* viene de *olotl* —del 
 </div>
 
 
----
+<div class="refs">
 
-### Para saber más
+## Para saber más
 
 **Origen y genética de la domesticación**
+
 - Yang, N. *et al.* (2023). *Two teosintes made modern maize*. **Science** 382, 1013. DOI: 10.1126/science.adg8940. El segundo abuelo, *Zea mays* ssp. *mexicana*.
 - Berube, B. *et al.* (2024). *Teosinte Pollen Drive guides maize diversification and domestication by RNAi*. **Nature** 633, 380–388. DOI: 10.1038/s41586-024-07788-0.
 - Doebley, J., Stec, A. & Hubbard, L. (1997). *The evolution of apical dominance in maize*. **Nature** 386, 485–488. El gen *tb1*.
 - Wang, H. *et al.* (2005). *The origin of the naked grains of maize*. **Nature** 436, 714–719. El gen *tga1*.
 
 **Arqueología**
+
 - Piperno, D. R. *et al.* (2009). *Starch grain and phytolith evidence for early ninth millennium B.P. maize from the Central Balsas River Valley, Mexico*. **PNAS** 106, 5019–5024. La evidencia microbotánica de maíz de ~9,000 años.
 
 **Nixtamalización**
+
 - Katz, S. H., Hediger, M. L. & Valleroy, L. A. (1974). *Traditional Maize Processing Techniques in the New World*. **Science** 184, 765–773. El estudio biocultural clásico sobre la cal y la niacina.
 
 **Diversidad y cultura**
+
 - CONABIO — *Razas de maíz de México* y *Teocintles*, Biodiversidad Mexicana (biodiversidad.gob.mx).
 - INALI — *Catálogo de las Lenguas Indígenas Nacionales* (inali.gob.mx).
 - Centro Nacional de Recursos Genéticos (CNRG), INIFAP, Tepatitlán de Morelos, Jalisco.
 - Banco de Germoplasma de Maíz, CIMMYT, Texcoco, Estado de México.
 
 **El mito**
+
 - *Popol Vuh: Las antiguas historias del Quiché*. Traducción de Adrián Recinos. Fondo de Cultura Económica (1947).
+
+</div>
