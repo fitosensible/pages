@@ -1,0 +1,139 @@
+---
+// src/components/SigueLeyendo.astro
+// Tarjetas de "sigue leyendo" para el final de cada artículo.
+// Se alimenta sola de la colección: cuando publiques el cuarto artículo,
+// aparece aquí sin que toques nada.
+
+import { getCollection } from 'astro:content';
+import Etiquetas from './Etiquetas.astro';
+
+interface Props {
+	actual: string;   // post.id del artículo que se está leyendo
+	max?: number;     // cuántas tarjetas mostrar (por defecto 2)
+}
+
+const { actual, max = 2 } = Astro.props;
+
+const otros = (await getCollection('blog'))
+	.filter((p) => p.id !== actual)
+	.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime())
+	.slice(0, max);
+---
+
+{otros.length > 0 && (
+	<nav class="sigue" aria-label="Otros artículos">
+		<p class="sigue-eyebrow">Sigue leyendo</p>
+
+		<div class="sigue-grid">
+			{otros.map((post) => (
+				<a class="sigue-card" href={`/blog/${post.id}`}>
+					{post.data.imagen && (
+						<img
+							class="sigue-img"
+							src={post.data.imagen}
+							alt=""
+							loading="lazy"
+							decoding="async"
+						/>
+					)}
+					<div class="sigue-txt">
+						<Etiquetas interactivos={post.data.interactivos} />
+						<h3>{post.data.titulo}</h3>
+						{post.data.descripcion && <p>{post.data.descripcion}</p>}
+						<span class="sigue-cta">Leer →</span>
+					</div>
+				</a>
+			))}
+		</div>
+	</nav>
+)}
+
+<style>
+	.sigue {
+		margin-top: 3.5rem;
+		padding-top: 2rem;
+		border-top: 1px solid rgba(27, 42, 34, 0.15);
+	}
+
+	.sigue-eyebrow {
+		font-size: 0.8rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--dorado);
+		font-weight: 600;
+		margin-bottom: 1.4rem;
+	}
+
+	.sigue-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		align-items: start;
+		gap: 1.8rem;
+	}
+
+	.sigue-card {
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.sigue-img {
+		width: 100%;
+		aspect-ratio: 3 / 2;
+		object-fit: cover;
+		border-radius: 12px;
+		display: block;
+		margin-bottom: 0.9rem;
+		transition: opacity 0.2s ease;
+	}
+
+	.sigue-txt {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+	}
+
+	.sigue-card h3 {
+		font-family: 'Newsreader', serif;
+		font-weight: 500;
+		line-height: 1.2;
+		font-size: 1.3rem;
+		color: var(--verde);
+		margin: 0 0 0.45rem;
+		transition: color 0.15s ease;
+	}
+
+	.sigue-card p {
+		font-size: 0.95rem;
+		line-height: 1.55;
+		color: rgba(27, 42, 34, 0.8);
+		margin: 0 0 0.8rem;
+	}
+
+	.sigue-cta {
+		margin-top: auto;
+		font-size: 0.85rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: var(--dorado);
+	}
+
+	.sigue-card:hover h3 { color: var(--dorado); }
+	.sigue-card:hover .sigue-img { opacity: 0.88; }
+
+	.sigue-card:focus-visible {
+		outline: 2px solid var(--dorado);
+		outline-offset: 6px;
+		border-radius: 12px;
+	}
+
+	@media (max-width: 640px) {
+		.sigue-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.sigue-card h3,
+		.sigue-img { transition: none; }
+	}
+</style>

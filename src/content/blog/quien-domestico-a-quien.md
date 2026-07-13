@@ -2,7 +2,9 @@
 titulo: "¿Quién domesticó a quién?"
 fecha: 2026-07-07
 autor: Pedro Jiménez-Sandoval
+imagen: "/img/quien-domestico-portada.png"
 descripcion: "Una mazorca no puede sembrarse sola. ¿La domesticamos nosotros, o el maíz nos sembró a nosotros?"
+interactivos: ["quiz"]
 ---
 <figure style="margin: 0 0 1.5rem;">
   <img src="/img/quien-domestico-portada.png" style="width: 100%; height: auto; border-radius: 16px; display: block;" alt="Bodegón de estudio: a la izquierda el teocintle silvestre, ramificado como pasto; a la derecha el maíz domesticado con mazorcas multicolores; en medio, un mapa de Mesoamérica, un microscopio y herramientas de laboratorio." />

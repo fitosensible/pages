@@ -3,6 +3,10 @@ import { getCollection } from 'astro:content';
 
 import { render } from 'astro:content';
 
+import SigueLeyendo from '../../components/SigueLeyendo.astro';
+
+import CanalWhatsApp from '../../components/CanalWhatsApp.astro';
+
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
@@ -79,15 +83,18 @@ const descripcionSocial = descripcion || titulo;
 			</div>
 
 			<!-- COMPARTIR -->
-			<div class="compartir">
-				<p class="compartir-titulo">¿Te gustó? Compártelo</p>
-				<div class="compartir-botones">
-					<a href={`https://wa.me/?text=${textoCompartir}%20${urlCodificada}`} target="_blank" rel="noopener">WhatsApp</a>
-					<a href={`https://x.com/intent/tweet?text=${textoCompartir}&url=${urlCodificada}`} target="_blank" rel="noopener">X</a>
-					<a href={`https://www.facebook.com/sharer/sharer.php?u=${urlCodificada}`} target="_blank" rel="noopener">Facebook</a>
-					<button id="copiar" data-url={urlArticulo}>Copiar enlace</button>
-				</div>
-			</div>
+            <div class="compartir">
+                <p class="compartir-titulo">¿Te gustó? Compártelo</p>
+                <div class="compartir-botones">
+                    <a href={`https://wa.me/?text=${textoCompartir}%20${urlCodificada}`} target="_blank" rel="noopener">WhatsApp</a>
+                    <a href={`https://x.com/intent/tweet?text=${textoCompartir}&url=${urlCodificada}`} target="_blank" rel="noopener">X</a>
+                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${urlCodificada}`} target="_blank" rel="noopener">Facebook</a>
+                    <button id="copiar" data-url={urlArticulo}>Copiar enlace</button>
+                </div>
+            </div>
+
+            <SigueLeyendo actual={post.id} />
+			<CanalWhatsApp />
 		</main>
 
 		<footer class="footer">

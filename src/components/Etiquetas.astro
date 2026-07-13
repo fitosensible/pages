@@ -1,0 +1,62 @@
+---
+// src/components/Etiquetas.astro
+// Etiquetas de "qué trae este artículo además del texto".
+// Un solo diccionario: si algún día quieres que "Con juego" diga otra cosa,
+// lo cambias aquí y se actualiza en toda la página.
+
+interface Props {
+	interactivos?: ('juego' | 'quiz' | 'playlist')[];
+}
+
+const { interactivos = [] } = Astro.props;
+
+const DICCIONARIO = {
+	juego:    { icono: '🎮', texto: 'Con juego' },
+	quiz:     { icono: '🧠', texto: 'Con quiz' },
+	playlist: { icono: '🎧', texto: 'Con playlist' },
+} as const;
+---
+
+{interactivos.length > 0 && (
+	<ul class="etiquetas">
+		{interactivos.map((clave) => (
+			<li class="etiqueta">
+				<span class="etiqueta-icono" aria-hidden="true">{DICCIONARIO[clave].icono}</span>
+				{DICCIONARIO[clave].texto}
+			</li>
+		))}
+	</ul>
+)}
+
+<style>
+	.etiquetas {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin: 0 0 0.8rem;
+		padding: 0;
+	}
+
+	.etiqueta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.07em;
+		text-transform: uppercase;
+		color: var(--verde);
+		background: rgba(192, 138, 45, 0.14);
+		border: 1px solid rgba(192, 138, 45, 0.35);
+		border-radius: 999px;
+		padding: 0.2rem 0.65rem 0.22rem;
+		line-height: 1.4;
+		white-space: nowrap;
+	}
+
+	.etiqueta-icono {
+		font-size: 0.85rem;
+		line-height: 1;
+	}
+</style>

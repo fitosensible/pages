@@ -4,6 +4,7 @@ fecha: 2026-07-05
 autor: Pedro Jiménez-Sandoval
 imagen: "/img/oruga-portada.png"
 descripcion: "Las plantas no tienen ojos ni nervios, pero se enteran de que las muerden y corren la voz por su cuerpo. Cómo lo hacen, y el mensajero que tardamos un siglo en atrapar."
+interactivos: ["juego"]
 ---
 <figure style="margin: 0 0 1.5rem;">
   <img src="/img/oruga-portada.png" style="width: 100%; height: auto; border-radius: 16px; display: block;" alt="Ilustración estilo plastilina de una oruga mordiendo una hoja cuyas nervaduras se encienden desde la mordida" />

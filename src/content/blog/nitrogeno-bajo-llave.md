@@ -4,6 +4,7 @@ fecha: 2026-07-12
 autor: Pedro Jiménez-Sandoval
 imagen: "/img/nitrogeno-portada.png"
 descripcion: "El aire está lleno de nitrógeno, pero las plantas no pueden usarlo. La historia de las bacterias, los hongos y la milpa que resolvieron el problema mucho antes que nosotros."
+interactivos: ["juego", "quiz", "playlist"]
 ---
 
 <figure style="margin: 0 0 1.5rem;">

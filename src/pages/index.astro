@@ -1,14 +1,24 @@
 ---
 import { getCollection } from 'astro:content';
+import Etiquetas from '../components/Etiquetas.astro';
+import { CANAL_WHATSAPP } from '../consts';
+
 const posts = (await getCollection('blog'))
-    .sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
+	.sort((a, b) => b.data.fecha.getTime() - a.data.fecha.getTime());
+
+// El más reciente manda: ocupa el destacado. El resto va abajo.
+const [destacado, ...secundarios] = posts;
+
+const fechaLegible = (fecha: Date) =>
+	new Date(fecha).toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
 <html lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Fitosensible — La vida secreta de las plantas</title>
-		<meta name="description" content="Divulgación científica sobre el mundo de las plantas: cómo perciben, cómo evolucionan y cómo se entrelazan con nosotros. Por Pedro Jiménez-Sandoval." />		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<meta name="description" content="Divulgación científica sobre el mundo de las plantas: cómo perciben, cómo evolucionan y cómo se entrelazan con nosotros. Por Pedro Jiménez-Sandoval." />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
 	</head>
@@ -36,10 +46,10 @@ const posts = (await getCollection('blog'))
 				<p class="eyebrow">Divulgación científica</p>
 				<h1>Las plantas sienten<br />más de lo que crees.</h1>
 				<p class="deck">
-    				No tienen ojos ni nervios, pero perciben la luz, la gravedad, las estaciones
-   			 		y hasta el momento en que un insecto empieza a comerse una hoja —y responden—.
-   				 	Aquí cuento cómo sienten el mundo, cómo se relacionan con él y cómo han terminado
-    				entrelazadas con nuestra propia historia. En lenguaje claro y para todos.
+					No tienen ojos ni nervios, pero perciben la luz, la gravedad, las estaciones
+					y hasta el momento en que un insecto empieza a comerse una hoja —y responden—.
+					Aquí cuento cómo sienten el mundo, cómo se relacionan con él y cómo han terminado
+					entrelazadas con nuestra propia historia. En lenguaje claro y para todos.
 				</p>
 				<p class="proposito">
 					Ciencia de frontera contada en español: una apuesta por el acceso universal al conocimiento
@@ -48,32 +58,74 @@ const posts = (await getCollection('blog'))
 
 			<!-- ARTÍCULOS -->
 			<section class="articulos">
-				<p class="eyebrow">Artículos</p>
-				<h2 class="seccion-titulo">Lo más reciente</h2>
-				<div class="temas">
-    				{posts.map((post) => (
-       					<a class="tema" href={`/blog/${post.id}`}>
-            				<h3>{post.data.titulo}</h3>
-            				<p>{post.data.descripcion}</p>
-        				</a>
-    				))}
-				</div>
+
+				{destacado && (
+					<>
+						<p class="eyebrow">Lo más reciente</p>
+
+						<a class="destacado" href={`/blog/${destacado.id}`}>
+							{destacado.data.imagen && (
+								<div class="destacado-media">
+									<img
+										src={destacado.data.imagen}
+										alt=""
+										loading="eager"
+										decoding="async"
+									/>
+								</div>
+							)}
+							<div class="destacado-txt">
+								<Etiquetas interactivos={destacado.data.interactivos} />
+								<h2>{destacado.data.titulo}</h2>
+								{destacado.data.descripcion && <p class="destacado-bajada">{destacado.data.descripcion}</p>}
+								<p class="fecha">{fechaLegible(destacado.data.fecha)}</p>
+								<span class="cta">Leer el artículo →</span>
+							</div>
+						</a>
+					</>
+				)}
+
+				{secundarios.length > 0 && (
+					<>
+						<p class="eyebrow eyebrow-mas">Más artículos</p>
+
+						<div class="rejilla">
+							{secundarios.map((post) => (
+								<a class="tarjeta" href={`/blog/${post.id}`}>
+									{post.data.imagen && (
+										<div class="tarjeta-media">
+											<img src={post.data.imagen} alt="" loading="lazy" decoding="async" />
+										</div>
+									)}
+									<div class="tarjeta-txt">
+										<Etiquetas interactivos={post.data.interactivos} />
+										<h3>{post.data.titulo}</h3>
+										{post.data.descripcion && <p>{post.data.descripcion}</p>}
+										<p class="fecha">{fechaLegible(post.data.fecha)}</p>
+									</div>
+								</a>
+							))}
+						</div>
+					</>
+				)}
+
 			</section>
 		</main>
 
 		<!-- FOOTER -->
 		<footer class="footer">
 			<p class="acerca">
-    			<strong>Fitosensible</strong> es un proyecto de divulgación científica sobre el
-    			mundo de las plantas —cómo perciben, cómo evolucionan y cómo se entrelazan con
-   			 	nosotros—, creado por Pedro Jiménez-Sandoval, Doctor en Ciencias por el Cinvestav
-  			  	(México) e investigador en la Universidad de Lausanne (Suiza). Miembro del SNII
-  			  	Nivel 1 (México).
+				<strong>Fitosensible</strong> es un proyecto de divulgación científica sobre el
+				mundo de las plantas —cómo perciben, cómo evolucionan y cómo se entrelazan con
+				nosotros—, creado por Pedro Jiménez-Sandoval, Doctor en Ciencias por el Cinvestav
+				(México) e investigador en la Universidad de Lausanne (Suiza). Miembro del SNII
+				Nivel 1 (México).
 			</p>
 			<p class="descargo">
 				Proyecto personal. Las opiniones son propias y no representan a ninguna institución.
 			</p>
 			<nav class="redes">
+				<a href={CANAL_WHATSAPP} target="_blank" rel="noopener">Canal de WhatsApp</a>
 				<a href="https://instagram.com/fitosensible" target="_blank" rel="noopener">Instagram</a>
 				<a href="https://tiktok.com/@fitosensible" target="_blank" rel="noopener">TikTok</a>
 				<a href="https://youtube.com/@fitosensible" target="_blank" rel="noopener">YouTube</a>
@@ -155,22 +207,113 @@ const posts = (await getCollection('blog'))
 				padding: 3rem 2rem 5rem;
 				border-top: 1px solid rgba(27,42,34,0.15);
 			}
-			.seccion-titulo {
-				font-size: 2rem;
-				color: var(--verde);
-				margin-bottom: 2rem;
+
+			/* — Fecha, compartida por destacado y tarjetas — */
+			.articulos .fecha {
+				font-size: 0.78rem;
+				letter-spacing: 0.06em;
+				text-transform: uppercase;
+				color: rgba(27,42,34,0.5);
 			}
-			.temas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-			.tema {
+
+			/* — DESTACADO — */
+			.destacado {
+				display: grid;
+				grid-template-columns: 1.15fr 1fr;
+				gap: 2.5rem;
+				align-items: center;
+				text-decoration: none;
+				color: inherit;
+				margin-bottom: 4rem;
+			}
+			.destacado-media {
+				border-radius: 16px;
+				overflow: hidden;
+				background: rgba(27,42,34,0.06);
+			}
+			.destacado-media img {
+				width: 100%;
+				aspect-ratio: 4 / 3;
+				object-fit: cover;
 				display: block;
+				transition: transform 0.5s ease, opacity 0.3s ease;
+			}
+			.destacado-txt h2 {
+				font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+				color: var(--verde);
+				margin-bottom: 0.9rem;
+				transition: color 0.15s ease;
+			}
+			.destacado-bajada {
+				font-family: 'Newsreader', serif;
+				font-size: 1.15rem;
+				line-height: 1.5;
+				color: rgba(27,42,34,0.85);
+				margin-bottom: 1rem;
+			}
+			.destacado .fecha { margin-bottom: 1.2rem; }
+			.destacado .cta {
+				font-size: 0.9rem;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+				color: var(--dorado);
+			}
+			.destacado:hover h2 { color: var(--dorado); }
+			.destacado:hover .destacado-media img { transform: scale(1.03); }
+
+			/* — SECUNDARIOS — */
+			.eyebrow-mas {
+				padding-top: 2.5rem;
+				border-top: 1px solid rgba(27,42,34,0.15);
+				margin-bottom: 1.8rem;
+			}
+			.rejilla {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+				gap: 2.5rem 2rem;
+			}
+			.tarjeta {
+				display: flex;
+				flex-direction: column;
 				text-decoration: none;
 				color: inherit;
 			}
-			.tema:hover h3 {
-				color: var(--dorado);
+			.tarjeta-media {
+				border-radius: 12px;
+				overflow: hidden;
+				background: rgba(27,42,34,0.06);
+				margin-bottom: 1rem;
 			}
-			.tema h3 { font-size: 1.35rem; color: var(--verde); margin-bottom: 0.5rem; }
-			.tema p { font-size: 0.98rem; color: rgba(27,42,34,0.8); }
+			.tarjeta-media img {
+				width: 100%;
+				aspect-ratio: 3 / 2;
+				object-fit: cover;
+				display: block;
+				transition: transform 0.5s ease;
+			}
+			.tarjeta-txt { display: flex; flex-direction: column; flex: 1; }
+			.tarjeta h3 {
+				font-size: 1.35rem;
+				color: var(--verde);
+				margin-bottom: 0.5rem;
+				transition: color 0.15s ease;
+			}
+			.tarjeta-txt p:not(.fecha) {
+				font-size: 0.98rem;
+				color: rgba(27,42,34,0.8);
+				margin-bottom: 0.8rem;
+			}
+			.tarjeta .fecha { margin-top: auto; }
+			.tarjeta:hover h3 { color: var(--dorado); }
+			.tarjeta:hover .tarjeta-media img { transform: scale(1.03); }
+
+			/* — Foco visible para teclado — */
+			.destacado:focus-visible,
+			.tarjeta:focus-visible {
+				outline: 2px solid var(--dorado);
+				outline-offset: 8px;
+				border-radius: 16px;
+			}
 
 			/* FOOTER */
 			.footer {
@@ -204,9 +347,22 @@ const posts = (await getCollection('blog'))
 			}
 			.redes a:hover { text-decoration: underline; }
 
-			@media (max-width: 700px) {
-				.temas { grid-template-columns: 1fr; }
+			/* MÓVIL */
+			@media (max-width: 760px) {
+				.destacado {
+					grid-template-columns: 1fr;
+					gap: 1.2rem;
+					margin-bottom: 3rem;
+				}
 				.hero { padding-top: 3rem; }
+				.rejilla { grid-template-columns: 1fr; gap: 2.5rem; }
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.destacado-media img,
+				.tarjeta-media img,
+				.destacado h2,
+				.tarjeta h3 { transition: none; }
 			}
 		</style>
 	</body>
